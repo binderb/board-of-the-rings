@@ -4,16 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "concurrently \"cd server && npm run dev\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/binderb/multiplayer-shell.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/binderb/multiplayer-shell/issues"
   },
-  "homepage": "https://github.com/binderb/multiplayer-shell#readme"
+  "homepage": "https://github.com/binderb/multiplayer-shell#readme",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
 }
