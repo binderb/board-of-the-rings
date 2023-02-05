@@ -27,6 +27,8 @@ const server = app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}! 🧩`)
 });
 
+// Here we attach the socket.io server object (which will listen for socket events)
+// to the HTTP server created by Express in the previous block.
 // Again, need to set up CORS for a development environment.
 const io = (process.env.NODE_ENV === 'production') 
 ? 
@@ -42,4 +44,8 @@ new Server(server, {
 // Listen for socket events.
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`);
+
+  socket.on("send_message", (data) => {
+    socket.broadcast.emit("receive_message", data);
+  })
 });
