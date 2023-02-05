@@ -27,6 +27,12 @@ function App() {
 
   return (
     <div className="App">
+      <p>
+        Instructions: Open this page in two (or more) different windows, and view them side-by-side. Messages sent on one window should be displayed immediately on the other window, and vice versa.
+      </p>
+      <p>
+        Next steps: Right now, the server is configured to emit to EVERYONE whenever one of the clients sends an event. We can build an interface to allow a player to "host" a closed game and let others join by invitation.
+      </p>
       <input placeholder='message...' onChange={(e) => {setMessage(e.target.value)}}/>
       <button onClick={sendMessage}>Submit Message</button>
       <h1>Message: </h1>
