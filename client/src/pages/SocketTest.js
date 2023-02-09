@@ -27,6 +27,7 @@ export default function SocketTest () {
 
   return (
     <>
+    <h1>Socket Test Page</h1>
     <p>
       Instructions: Open this page in two (or more) different windows, and view them side-by-side. Messages sent on one window should be displayed immediately on the other window, and vice versa.
     </p>
