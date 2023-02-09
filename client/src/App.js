@@ -1,43 +1,17 @@
 import io from 'socket.io-client';
-import { useEffect, useState } from "react";
-
-// This connects our front-end user to the socket
-// server, and will prompt a message on the server.
-const socket = io('http://localhost:3001');
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/Home';
+import SocketTest from './pages/SocketTest';
 
 function App() {
-
-  const [message, setMessage] = useState('');
-  const [messageReceived, setMessageReceived] = useState('');
-
-  const sendMessage = () => {
-    socket.emit("send_message", { message });
-  }
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log("received message!");
-      setMessageReceived(data.message);
-    });
-
-    return () => {
-      socket.off('receive_message');
-    };
-  }, []);
-
   return (
-    <div className="App">
-      <p>
-        Instructions: Open this page in two (or more) different windows, and view them side-by-side. Messages sent on one window should be displayed immediately on the other window, and vice versa.
-      </p>
-      <p>
-        Next steps: Right now, the server is configured to emit to EVERYONE whenever one of the clients sends an event. We can build an interface to allow a player to "host" a closed game and let others join by invitation.
-      </p>
-      <input placeholder='message...' onChange={(e) => {setMessage(e.target.value)}}/>
-      <button onClick={sendMessage}>Submit Message</button>
-      <h1>Message: </h1>
-      {messageReceived}
-    </div>
+    <Router>
+      <Link to='/'>Home</Link>
+      <Routes>
+      <Route path='/' element={<Home/>} />
+      <Route path='/socket-test' element={<SocketTest/>} />
+      </Routes>
+    </Router>
   );
 }
 
