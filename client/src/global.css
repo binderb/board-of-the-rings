@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@fontsource/medievalsharp";
+
+@layer base {
+  :root {
+    --dark: #252f23;
+    --highlight: rgb(191, 221, 116);
+    --green-link: #3ebe3e;
+    --green-link-highlight: #6dee6d;
+  }
+
+  body {
+    color: var(--highlight);
+    background-color: var(--dark);
+  }
+
+  h1 {
+    font-family: 'MedievalSharp';
+    font-size: 36px;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+
+  p {
+    padding-bottom: 10px;
+  }
+
+  a {
+    color: var(--green-link);
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: var(--green-link-highlight);
+  }
+
+}

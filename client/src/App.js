@@ -8,7 +8,10 @@ import SocketTest from './pages/SocketTest';
 function App() {
   return (
     <Router>
+      <header className='p-4 py-2'>
       <Link to='/'>Home</Link>
+      </header>
+      <main className='p-4 py-2'>
       <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/signup' element={<Signup/>} />
@@ -16,6 +19,7 @@ function App() {
       <Route path='/profile' element={<Profile/>} />
       <Route path='/socket-test' element={<SocketTest/>} />
       </Routes>
+      </main>
     </Router>
   );
 }

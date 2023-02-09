@@ -34,9 +34,9 @@ export default function SocketTest () {
     <p>
       Next steps: Right now, the server is configured to emit to EVERYONE whenever one of the clients sends an event. We can build an interface to allow a player to "host" a closed game and let others join by invitation.
     </p>
-    <input placeholder='message...' onChange={(e) => {setMessage(e.target.value)}}/>
-    <button onClick={sendMessage}>Submit Message</button>
-    <h1>Message: </h1>
+    <input className='rounded p-1 mr-2 bg-green-700 text-highlight placeholder-green-600' placeholder='message...' onChange={(e) => {setMessage(e.target.value)}}/>
+    <button className='rounded bg-green-800 p-1 px-2 hover:bg-green-700' onClick={sendMessage}>Submit Message</button>
+    <h1 className='py-3'>Message: </h1>
     {messageReceived}
     </>
   )
