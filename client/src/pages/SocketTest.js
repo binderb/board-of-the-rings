@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 // This connects our front-end user to the socket
 // server, and will prompt a message on the server.
-const socket = io('http://localhost:3001');
+const socket = io();
 
 export default function SocketTest () {
   
