@@ -10,6 +10,8 @@
     --highlight: rgb(191, 221, 116);
     --green-link: #3ebe3e;
     --green-link-highlight: #6dee6d;
+    --primary: #1a641a;
+    --primary-hover: #228022;
   }
 
   body {
@@ -35,6 +37,16 @@
 
   a:hover {
     color: var(--green-link-highlight);
+  }
+
+  .btn {
+    @apply py-1 px-2 rounded;
+  }
+  .btn-primary {
+    @apply bg-primary text-highlight;
+  }
+  .btn-primary:hover {
+    @apply bg-primaryHover;
   }
 
 }
