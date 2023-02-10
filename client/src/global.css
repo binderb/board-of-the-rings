@@ -49,4 +49,8 @@
     @apply bg-primaryHover;
   }
 
+  .textfield {
+    @apply rounded p-1 mr-2 bg-primary text-highlight placeholder-green-600
+  }
+
 }

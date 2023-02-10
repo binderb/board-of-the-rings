@@ -45,7 +45,21 @@ new Server(server, {
 io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
+  socket.on("join_room", async (data) => {
+    await socket.join(data);
+    const roommates = await io.in(data).fetchSockets();
+    console.log(`User ${socket.id} joined room ${data}.`);
+    console.log(roommates.length);
+    io.sockets.in(data).emit('receive_current_roommates',roommates.length);
+    // socket.broadcast.emit('receive_current_roommates', roommates);
+    // socket.to(data).emit("receive_current_roommates", roommates);
+  });
+  
   socket.on("send_message", (data) => {
     socket.broadcast.emit("receive_message", data);
   })
+
+  socket.on("disconnect", (reason) => {
+    console.log(`User ${socket.id} disconnected - ${reason}`);
+  });
 });
