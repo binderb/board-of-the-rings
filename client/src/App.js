@@ -4,6 +4,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import SocketTest from './pages/SocketTest';
+import Game from './pages/Game';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path='/login' element={<Login/>} />
       <Route path='/profile' element={<Profile/>} />
       <Route path='/socket-test' element={<SocketTest/>} />
+      <Route path='/game-session' element={<Game/>} />
       </Routes>
       </main>
     </Router>
