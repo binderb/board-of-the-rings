@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        highlight : "var(--highlight)"
+        dark : "var(--dark)",
+        highlight : "var(--highlight)",
+        primary: "var(--primary)",
+        primaryHover: "var(--primary-hover)"
       }
     },
   },
