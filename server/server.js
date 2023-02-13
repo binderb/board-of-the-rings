@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const { Server } = require('socket.io');
 const cors = require('cors');
+const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -20,6 +21,8 @@ if (process.env.NODE_ENV === 'production') {
   app.use(cors());
 }
 
+// connect to mongoDB database
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/board-of-the-rings")
 
 // This time, we actually need to use the HTTP server instance that is
 // returned by 'app.listen', so we capture it in a 'server' variable.
