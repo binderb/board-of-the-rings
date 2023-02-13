@@ -1,7 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import io from 'socket.io-client';
 
 import Lobby from '../components/game/Lobby';
+import WaitingRoom from '../components/game/WaitingRoom';
+import HostLeft from '../components/game/HostLeft';
+import GameSession from '../components/game/GameSession';
 
 // This connects our front-end user to the socket
 // server, and will prompt a message on the server.
@@ -9,25 +12,10 @@ const socket = io();
 
 export default function SocketTest () {
   
-  const [message, setMessage] = useState('');
-  const [messageReceived, setMessageReceived] = useState('');
   const [gameScreen, setGameScreen] = useState('lobby');
   const [roomId, setRoomId] = useState('');
-
-  const sendMessage = () => {
-    socket.emit("send_message", { message });
-  }
-
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log("received message!");
-      setMessageReceived(data.message);
-    });
-
-    return () => {
-      socket.off('receive_message');
-    };
-  }, []);
+  const [isHost, setIsHost] = useState(false);
+  const [roommates, setRoommates] = useState(0);
 
   return (
     <>
@@ -35,7 +23,10 @@ export default function SocketTest () {
     <p>
       Testing basic host/join/interact functions for a turn-based game.
     </p>
-    {gameScreen === 'lobby' ? <Lobby socket={socket} roomId={roomId} setRoomId={setRoomId} /> : null}
+    {gameScreen === 'lobby' ? <Lobby socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} /> : null}
+    {gameScreen === 'waitingRoom' ? <WaitingRoom socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} roommates={roommates} setRoommates={setRoommates} /> : null}
+    {gameScreen === 'hostLeft' ? <HostLeft setGameScreen={setGameScreen} /> : null}
+    {gameScreen === 'gameSession' ? <GameSession /> : null}
     </>
   )
 }

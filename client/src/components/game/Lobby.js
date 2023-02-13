@@ -1,29 +1,19 @@
 
 import { useState, useEffect } from "react";
 
-export default function Lobby ({ socket, roomId, setRoomId }) {
+export default function Lobby ({ socket, roomId, setRoomId, setGameScreen, setIsHost }) {
   
-  const [hostStatus, setHostStatus] = useState('');
   const [roomInput, setRoomInput] = useState('');
-  
-  useEffect(() => {
-    socket.on('receive_current_roommates', (data) => {
-      console.log(`received roommates: ${data}`);
-    });
-
-    return () => {
-      socket.off('receive_current_roommates');
-    };
-  }, []);
 
   useEffect(() => {
     if (roomId) {
       socket.emit("join_room", roomId);
-      setHostStatus(`Your room code is: ${roomId}`);
+      setGameScreen('waitingRoom');
     }
-  }, [roomId]);
+  }, [roomId, socket, setGameScreen]);
 
   const handleStartHost = async () => {
+    setIsHost(true);
     setRoomId(generateRoomId());
   }
 
@@ -47,11 +37,10 @@ export default function Lobby ({ socket, roomId, setRoomId }) {
       <p className="p-1">Host a game:</p>
       <div className="p-1">
         <button className="btn btn-primary" onClick={handleStartHost}>Host</button>
-        <span className="pl-2">{hostStatus}</span>
       </div>
       <p className="p-1">Or, join a game hosted by another player:</p>
       <div className="p-1">
-        <label htmlFor="join-input" className="pr-2">Enter a join code:</label>
+        <label htmlFor="join-input" className="pr-2">Enter a room code:</label>
         <input name="join-input" className="textfield" value={roomInput} onChange={handleInputChange}></input>
         <button className="btn btn-primary" onClick={handleJoin}>Join</button>
       </div>

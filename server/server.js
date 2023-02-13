@@ -51,8 +51,22 @@ io.on('connection', (socket) => {
     console.log(`User ${socket.id} joined room ${data}.`);
     console.log(roommates.length);
     io.sockets.in(data).emit('receive_current_roommates',roommates.length);
-    // socket.broadcast.emit('receive_current_roommates', roommates);
-    // socket.to(data).emit("receive_current_roommates", roommates);
+  });
+
+  socket.on("leave_room", async (data) => {
+    await socket.leave(data);
+    const roommates = await io.in(data).fetchSockets();
+    console.log(`User ${socket.id} left room ${data}.`);
+    console.log(roommates.length);
+    io.sockets.in(data).emit('receive_current_roommates',roommates.length);
+  });
+
+  socket.on("host_left", (data) => {
+    socket.to(data).emit('receive_host_left');
+  });
+
+  socket.on("start_game", (data) => {
+    io.sockets.in(data).emit('receive_start_game');
   });
   
   socket.on("send_message", (data) => {
