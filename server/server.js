@@ -46,19 +46,36 @@ io.on('connection', (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_room", async (data) => {
-    await socket.join(data);
-    const roommates = await io.in(data).fetchSockets();
-    console.log(`User ${socket.id} joined room ${data}.`);
-    console.log(roommates.length);
-    io.sockets.in(data).emit('receive_current_roommates',roommates.length);
+    await socket.join(data.roomId);
+    socket.data.playerName = data.playerName;
+    socket.data.isHost = data.isHost;
+    const roommateSockets = await io.in(data.roomId).fetchSockets();
+    const players = [];
+    for (roommate of roommateSockets) {
+      players.push({
+        id: roommate.id,
+        name: roommate.data.playerName,
+        isHost: roommate.data.isHost
+      });
+    }
+    console.log(`User ${socket.data.playerName} (${socket.id}) joined room ${data.roomId}.`);
+    console.log(players.length);
+    io.sockets.in(data.roomId).emit('receive_current_players',players);
   });
 
   socket.on("leave_room", async (data) => {
     await socket.leave(data);
-    const roommates = await io.in(data).fetchSockets();
-    console.log(`User ${socket.id} left room ${data}.`);
-    console.log(roommates.length);
-    io.sockets.in(data).emit('receive_current_roommates',roommates.length);
+    const roommateSockets = await io.in(data.roomId).fetchSockets();
+    const players = [];
+    for (roommate of roommateSockets) {
+      players.push({
+        id: roommate.id,
+        name: roommate.data.playerName
+      });
+    }
+    console.log(`User ${socket.data.playerName} (${socket.id}) left room ${data}.`);
+    console.log(players.length);
+    io.sockets.in(data).emit('receive_current_players',players);
   });
 
   socket.on("host_left", (data) => {

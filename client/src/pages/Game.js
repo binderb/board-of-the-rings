@@ -15,7 +15,7 @@ export default function SocketTest () {
   const [gameScreen, setGameScreen] = useState('lobby');
   const [roomId, setRoomId] = useState('');
   const [isHost, setIsHost] = useState(false);
-  const [roommates, setRoommates] = useState(0);
+  const [players, setPlayers] = useState([]);
 
   return (
     <>
@@ -24,7 +24,7 @@ export default function SocketTest () {
       Testing basic host/join/interact functions for a turn-based game.
     </p>
     {gameScreen === 'lobby' ? <Lobby socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} /> : null}
-    {gameScreen === 'waitingRoom' ? <WaitingRoom socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} roommates={roommates} setRoommates={setRoommates} /> : null}
+    {gameScreen === 'waitingRoom' ? <WaitingRoom socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} players={players} setPlayers={setPlayers} /> : null}
     {gameScreen === 'hostLeft' ? <HostLeft setGameScreen={setGameScreen} /> : null}
     {gameScreen === 'gameSession' ? <GameSession /> : null}
     </>

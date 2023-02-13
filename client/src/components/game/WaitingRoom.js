@@ -1,21 +1,19 @@
 import { useEffect } from "react";
 
-export default function WaitingRoom ({ socket, roomId, roommates, setRoommates, isHost, setRoomId, setGameScreen, setIsHost }) {
-
-  
+export default function WaitingRoom ({ socket, roomId, players, setPlayers, isHost, setRoomId, setGameScreen, setIsHost }) {
 
   useEffect(() => {
-    socket.on('receive_current_roommates', (data) => {
-      setRoommates(data);
+    socket.on('receive_current_players', (players) => {
+      setPlayers(players);
     });
 
-    socket.on('receive_host_left', (data) => {
+    socket.on('receive_host_left', () => {
       socket.emit('leave_room', roomId);
       setRoomId(null);
       setGameScreen('hostLeft');
     });
 
-    socket.on('receive_start_game', (data) => {
+    socket.on('receive_start_game', () => {
       setGameScreen('gameSession');
     });   
 
@@ -24,7 +22,7 @@ export default function WaitingRoom ({ socket, roomId, roommates, setRoommates, 
       socket.off('receive_host_left');
       socket.off('receive_start_game');
     };
-  }, [socket, roomId, setGameScreen, setRoomId, setRoommates]);
+  }, []);
 
   const handleCancelHost = () => {
     socket.emit('leave_room',roomId);
@@ -53,7 +51,14 @@ export default function WaitingRoom ({ socket, roomId, roommates, setRoommates, 
         <p>Waiting for the host to start the game...</p>
       }
       <p>Your room code is: {roomId}</p>
-      <p>Players in this room: {roommates}</p>
+      <p>Players in this room: {players.length}</p>
+      <div>
+        {players.map( (player) => 
+          <div className='bg-primary rounded p-2 px-4 m-1 block'>
+            {player.isHost ? `${player.name} (host)` : player.name}
+          </div>
+        )}
+      </div>
       { isHost ?
         <>
         <button className="btn btn-primary m-1" onClick={handleCancelHost}>Cancel</button>
