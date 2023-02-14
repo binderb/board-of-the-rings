@@ -18,7 +18,7 @@ export default function Lobby ({ socket, roomId, setRoomId, setGameScreen, isHos
       });
       setGameScreen('waitingRoom');
     }
-  }, [roomId]);
+  }, [socket, roomId, isHost, setMe, setGameScreen, nameInput]);
 
   const handleStartHost = async () => {
     setIsHost(true);

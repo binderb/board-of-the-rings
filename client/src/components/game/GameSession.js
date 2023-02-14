@@ -4,17 +4,8 @@ export default function GameSession ({ socket, roomId, players, turn, setTurn, m
   
   useEffect(() => {
     socket.on('receive_advance_turn', () => {
-      console.log("turn passing!");
-      if (turn >= players.length-1) {
-        console.log('conditional passed.');
-        console.log(turn);
-        setTurn(0);
-      } else {
-        console.log('conditional failed.');
-        console.log(turn);
-        console.log(players.length-1);
-        setTurn(turn+1);
-      }
+      if (turn >= players.length-1) setTurn(0);
+      else setTurn(turn+1);
     });   
 
     return () => {
@@ -36,8 +27,6 @@ export default function GameSession ({ socket, roomId, players, turn, setTurn, m
         :
         <p>It's {players[turn].name}'s turn.</p>
       }
-
-      
     </>
   );
 }

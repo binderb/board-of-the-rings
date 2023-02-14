@@ -22,7 +22,7 @@ export default function WaitingRoom ({ socket, roomId, players, setPlayers, isHo
       socket.off('receive_host_left');
       socket.off('receive_start_game');
     };
-  }, []);
+  }, [socket, roomId, setRoomId, setPlayers, setGameScreen]);
 
   const handleCancelHost = () => {
     socket.emit('leave_room',roomId);
