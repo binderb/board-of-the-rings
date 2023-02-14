@@ -1,13 +1,16 @@
 
 import { useState, useEffect } from "react";
 
-export default function Lobby ({ socket, roomId, setRoomId, setGameScreen, isHost, setIsHost }) {
+export default function Lobby ({ socket, roomId, setRoomId, setGameScreen, isHost, setIsHost, setMe }) {
   
   const [nameInput, setNameInput] = useState('');
   const [roomInput, setRoomInput] = useState('');
 
   useEffect(() => {
     if (roomId) {
+      setMe({
+        name: nameInput.trim()
+      });
       socket.emit("join_room", {
         roomId,
         isHost,

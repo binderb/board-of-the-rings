@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // connect to mongoDB database
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/board-of-the-rings")
+//mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/board-of-the-rings")
 
 // This time, we actually need to use the HTTP server instance that is
 // returned by 'app.listen', so we capture it in a 'server' variable.
@@ -81,12 +81,16 @@ io.on('connection', (socket) => {
     io.sockets.in(data).emit('receive_current_players',players);
   });
 
-  socket.on("host_left", (data) => {
-    socket.to(data).emit('receive_host_left');
+  socket.on("host_left", (room) => {
+    socket.to(room).emit('receive_host_left');
   });
 
-  socket.on("start_game", (data) => {
-    io.sockets.in(data).emit('receive_start_game');
+  socket.on("start_game", (room) => {
+    io.sockets.in(room).emit('receive_start_game');
+  });
+
+  socket.on("advance_turn", (room) => {
+    io.sockets.in(room).emit('receive_advance_turn');
   });
   
   socket.on("send_message", (data) => {
