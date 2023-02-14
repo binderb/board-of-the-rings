@@ -10,12 +10,14 @@ import GameSession from '../components/game/GameSession';
 // server, and will prompt a message on the server.
 const socket = io();
 
-export default function SocketTest () {
+export default function Game () {
   
   const [gameScreen, setGameScreen] = useState('lobby');
   const [roomId, setRoomId] = useState('');
   const [isHost, setIsHost] = useState(false);
   const [players, setPlayers] = useState([]);
+  const [me, setMe] = useState([]);
+  const [turn, setTurn] = useState(0);
 
   return (
     <>
@@ -23,10 +25,10 @@ export default function SocketTest () {
     <p>
       Testing basic host/join/interact functions for a turn-based game.
     </p>
-    {gameScreen === 'lobby' ? <Lobby socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} /> : null}
+    {gameScreen === 'lobby' ? <Lobby socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} me={me} setMe={setMe} /> : null}
     {gameScreen === 'waitingRoom' ? <WaitingRoom socket={socket} roomId={roomId} setRoomId={setRoomId} setGameScreen={setGameScreen} isHost={isHost} setIsHost={setIsHost} players={players} setPlayers={setPlayers} /> : null}
     {gameScreen === 'hostLeft' ? <HostLeft setGameScreen={setGameScreen} /> : null}
-    {gameScreen === 'gameSession' ? <GameSession /> : null}
+    {gameScreen === 'gameSession' ? <GameSession socket={socket} roomId={roomId} players={players} turn={turn} setTurn={setTurn} me={me} /> : null}
     </>
   )
 }
