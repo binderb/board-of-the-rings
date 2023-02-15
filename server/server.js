@@ -7,6 +7,7 @@ const { Server: SocketIOServer } = require('socket.io');
 const registerGameHandlers = require('./utils/gameHandlers');
 const cors = require('cors');
 const db = require('./config/connection');
+const {authMiddleware} = require('./utils/auth');
 
 // -------------------------------
 // Basic Express Setup
@@ -66,7 +67,7 @@ io.on('connection', (socket) => {
 const apollo = new ApolloServer({
   typeDefs,
   resolvers,
-  // context: authMiddleware
+  context: authMiddleware,
 });
 
 // -------------------------------
