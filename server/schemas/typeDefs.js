@@ -36,4 +36,4 @@ const typeDefs = gql`
 
 module.exports = typeDefs;
 
-// answers: [{String}, {Boolean}]
+
