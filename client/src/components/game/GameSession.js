@@ -1,18 +1,26 @@
 import { useEffect } from "react";
+import { useGameSession } from "../../utils/GameSessionContext";
 import QuizPrompt from './session/QuizPrompt';
 
-export default function GameSession ({ socket, roomId, players, turn, setTurn, me }) {
+export default function GameSession () {
+
+  const {
+    socket, 
+    roomId, 
+    players, 
+    turn, 
+    advanceTurn 
+  } = useGameSession();
   
   useEffect(() => {
     socket.on('receive_advance_turn', () => {
-      if (turn >= players.length-1) setTurn(0);
-      else setTurn(turn+1);
+      advanceTurn();
     });   
 
     return () => {
       socket.off('receive_advance_turn');
     };
-  }, [turn, players, setTurn, socket]);
+  }, [socket, players, advanceTurn]);
 
   const handlePassTurn = () => {
     socket.emit('advance_turn', roomId);
@@ -20,7 +28,7 @@ export default function GameSession ({ socket, roomId, players, turn, setTurn, m
 
   return (
     <>
-      {(players[turn].name === me.name) ?
+      {(players[turn].id === socket.id) ?
         <>
           <p>It's my turn!</p>
           <QuizPrompt />

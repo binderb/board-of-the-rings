@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import SocketTest from './pages/SocketTest';
 import Game from './pages/Game';
+import GameSessionProvider from './utils/GameSessionContext';
 
 function App() {
   return (
@@ -13,14 +14,16 @@ function App() {
       <Link to='/'>Home</Link>
       </header>
       <main className='p-4 py-2'>
+      <GameSessionProvider>
       <Routes>
-      <Route path='/' element={<Home/>} />
-      <Route path='/signup' element={<Signup/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/profile' element={<Profile/>} />
-      <Route path='/socket-test' element={<SocketTest/>} />
-      <Route path='/game-session' element={<Game/>} />
+        <Route path='/' element={<Home/>} />
+        <Route path='/signup' element={<Signup/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/socket-test' element={<SocketTest/>} />
+        <Route path='/game-session' element={<Game/>} />
       </Routes>
+      </GameSessionProvider>
       </main>
     </Router>
   );

@@ -1,6 +1,18 @@
 import { useEffect } from "react";
+import { useGameSession } from "../../utils/GameSessionContext";
 
-export default function WaitingRoom ({ socket, roomId, players, setPlayers, isHost, setRoomId, setGameScreen, setIsHost }) {
+export default function WaitingRoom () {
+
+  const { 
+    socket,
+    setGameScreen,
+    roomId,
+    players,
+    setPlayers, 
+    isHost,
+    leaveRoom,
+    leaveRoomAsHost
+  } = useGameSession();
 
   useEffect(() => {
     socket.on('receive_current_players', (players) => {
@@ -8,8 +20,7 @@ export default function WaitingRoom ({ socket, roomId, players, setPlayers, isHo
     });
 
     socket.on('receive_host_left', () => {
-      socket.emit('leave_room', roomId);
-      setRoomId(null);
+      leaveRoom();
       setGameScreen('hostLeft');
     });
 
@@ -22,19 +33,15 @@ export default function WaitingRoom ({ socket, roomId, players, setPlayers, isHo
       socket.off('receive_host_left');
       socket.off('receive_start_game');
     };
-  }, [socket, roomId, setRoomId, setPlayers, setGameScreen]);
+  }, [socket, setPlayers, leaveRoom, setGameScreen]);
 
   const handleCancelHost = () => {
-    socket.emit('leave_room',roomId);
-    socket.emit('host_left', roomId);
-    setRoomId(null);
-    setIsHost(false);
+    leaveRoomAsHost();
     setGameScreen('lobby');
   }
 
   const handleCancelPlayer = () => {
-    socket.emit('leave_room',roomId);
-    setRoomId(null);
+    leaveRoom();
     setGameScreen('lobby');
   }
 

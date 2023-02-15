@@ -12,6 +12,8 @@
     --green-link-highlight: #6dee6d;
     --primary: #1a641a;
     --primary-hover: #228022;
+    --correct: #27ac27;
+    --incorrect: #761313;
   }
 
   body {
@@ -47,6 +49,18 @@
   }
   .btn-primary:hover {
     @apply bg-primaryHover;
+  }
+  .btn-correct {
+    @apply bg-correct text-highlight;
+  }
+  .btn-correct:hover {
+    @apply bg-correct text-highlight;
+  }
+  .btn-incorrect {
+    @apply bg-incorrect text-highlight;
+  }
+  .btn-incorrect:hover {
+    @apply bg-incorrect text-highlight;
   }
 
   .textfield {

@@ -1,6 +1,7 @@
+import { useState } from 'react';
 
 export default function QuizPrompt () {
-
+  const [picked, setPicked] = useState(false);
   const questionIndex = 0;
   const quizData = [
     {
@@ -26,11 +27,16 @@ export default function QuizPrompt () {
     }
   ];
 
-  const checkAnswer = (isCorrect) => {
-    if (isCorrect) {
-      console.log("Correct!");
-    } else {
-      console.log("Incorrect.");
+  const checkAnswer = (e, isCorrect) => {
+    if (!picked) {
+      setPicked(true);
+      if (isCorrect) {
+        e.target.classList.remove('btn-primary');
+        e.target.classList.add('btn-correct');
+      } else {
+        e.target.classList.remove('btn-primary');
+        e.target.classList.add('btn-incorrect');
+      }
     }
   }
 
@@ -41,7 +47,7 @@ export default function QuizPrompt () {
       </p>
       <div id="answers">
         {quizData[questionIndex].answers.map( (answer) =>
-          <button key={answer.option} className="btn btn-primary m-2 block" onClick={() => checkAnswer(answer.isCorrect)}>{answer.option}</button>
+          <button key={answer.option} disabled={picked} className="btn btn-primary m-2 block" onClick={(e) => checkAnswer(e, answer.isCorrect)}>{answer.option}</button>
         )}
       </div>
 
