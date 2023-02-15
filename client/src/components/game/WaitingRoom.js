@@ -11,7 +11,8 @@ export default function WaitingRoom () {
     setPlayers, 
     isHost,
     leaveRoom,
-    leaveRoomAsHost
+    leaveRoomAsHost,
+    pickQuestion
   } = useGameSession();
 
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function WaitingRoom () {
   }
 
   const handleStartGame = () => {
+    pickQuestion();
     socket.emit('start_game',roomId);
   }
 
