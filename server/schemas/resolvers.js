@@ -1,3 +1,5 @@
+const { Questions } = require('../models')
+
 const resolvers = {
   Query: {
     questions: async () => {
