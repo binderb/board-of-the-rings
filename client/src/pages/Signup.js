@@ -1,4 +1,10 @@
 import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
+
+// import { useMutation } from '@apollo/client';
+// import { ADD_PROFILE } from '../utils/mutations';
+
+// import Auth from '../utils/auth';
 
 export default function Signup () {
   const [username, setUsername] = useState('');
@@ -6,13 +12,29 @@ export default function Signup () {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Perform signup logic here (e.g., sending data to a server)
+    // Perform signup logic here
+    try {
+      const response = await fetch('/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+      });
+
+      if (!response.ok) {
+        throw new Error('Signup failed.');
+      }
+      const { token } = await response.json(); // Get JWT from server response
+
+      localStorage.setItem('token', token); // Store JWT in local storage
     // ...
 
     // Reset form fields
+
     setUsername('');
     setEmail('');
     setPassword('');
@@ -22,17 +44,20 @@ export default function Signup () {
     setTimeout(() => {
       window.location.href = '/login';
     }, 1000);
+  } catch (error) {
+      setErrorMessage('Signup failed.');
+    }
   };
 
   return (
     <div className='p-4'>
     <h1>Signup</h1>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="signup-form">
       <div className='form-group'>
         <label htmlFor='username'>Username</label>
         <input
           type='text'
-          className='form-control'
+          className='textfield'
           id='username'
           value={username}
           onChange={(event) => setUsername(event.target.value)}
@@ -43,7 +68,7 @@ export default function Signup () {
         <label htmlFor='email'>Email</label>
         <input
           type='email'
-          className='form-control'
+          className='textfield'
           id='email'
           value={email}
           onChange={(event) => setEmail(event.target.value)}
@@ -54,7 +79,7 @@ export default function Signup () {
         <label htmlFor='password'>Password</label>
         <input
           type='password'
-          className='form-control'
+          className='textfield'
           id='password'
           value={password}
           onChange={(event) => setPassword(event.target.value)}
