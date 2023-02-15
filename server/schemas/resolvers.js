@@ -1,9 +1,7 @@
 const resolvers = {
   Query: {
-    placeholder: async () => {
-      return {
-        _id: "placeholder ID"
-      };
+    questions: async () => {
+      return Questions.find();
     }
   }
 }
