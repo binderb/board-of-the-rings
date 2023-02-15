@@ -1,13 +1,16 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Placeholder {
+  type Questions {
     _id: ID
+    quizQ: String
+    answers: [{String}, {Boolean}]
   }
 
   type Query {
-    placeholder: Placeholder
+    questions: [Questions]!
+    question:(profileId: ID!): Questions
   }
-`;
+  `;
 
 module.exports = typeDefs;
