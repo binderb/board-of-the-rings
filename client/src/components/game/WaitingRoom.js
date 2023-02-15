@@ -22,7 +22,7 @@ export default function WaitingRoom ({ socket, roomId, players, setPlayers, isHo
       socket.off('receive_host_left');
       socket.off('receive_start_game');
     };
-  }, []);
+  }, [socket, roomId, setRoomId, setPlayers, setGameScreen]);
 
   const handleCancelHost = () => {
     socket.emit('leave_room',roomId);
@@ -54,7 +54,7 @@ export default function WaitingRoom ({ socket, roomId, players, setPlayers, isHo
       <p>Players in this room: {players.length}</p>
       <div>
         {players.map( (player) => 
-          <div className='bg-primary rounded p-2 px-4 m-1 block'>
+          <div key={player.id} className='bg-primary rounded p-2 px-4 m-1 block'>
             {player.isHost ? `${player.name} (host)` : player.name}
           </div>
         )}
