@@ -39,7 +39,7 @@ export default function GameSessionProvider({ children }) {
       socket.off('receive_pick_question');
     };
   }, [usedQuestions]);
-  
+
   // Methods
   const joinRoom = (id) => {
     setRoomId(id);
@@ -70,17 +70,15 @@ export default function GameSessionProvider({ children }) {
   const pickQuestion = () => {
     const questions = questionsData?.questions || [];
     if (questions.length > 0) {
-      // Reset used question array of all questions have already been used.
-      if (usedQuestions.length >= questions.length) {
-        socket.emit('reset_questions');
-      }
+      const reset = (usedQuestions.length >= questions.length);
+      const questionsToExclude = reset ? [] : usedQuestions;
       const questionIndices = [];
       for (let i=0; i<questions.length; i++) questionIndices.push(i);
-      const remainingQuestionIndices = questionIndices.filter(i => !usedQuestions.includes(i));
+      const remainingQuestionIndices = questionIndices.filter(i => !questionsToExclude.includes(i));
       const pickedQuestion = remainingQuestionIndices[Math.floor(Math.random()*remainingQuestionIndices.length)];
-      socket.emit('pick_question', {room: roomId, questionIndex: pickedQuestion});
+      socket.emit('pick_question', {room: roomId, questionIndex: pickedQuestion, reset: reset});
     } else {
-      socket.emit('pick_question', {room: roomId, questionIndex: null});
+      socket.emit('pick_question', {room: roomId, questionIndex: null, reset: false});
     }
   }
 

@@ -9,7 +9,8 @@ export default function GameSession () {
     roomId, 
     players, 
     turn, 
-    advanceTurn 
+    advanceTurn,
+    pickQuestion
   } = useGameSession();
   
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function GameSession () {
   }, [socket, players, advanceTurn]);
 
   const handlePassTurn = () => {
+    pickQuestion();
     socket.emit('advance_turn', roomId);
   }
 
