@@ -44,6 +44,11 @@ const registerGameHandlers = (io, socket) => {
     io.sockets.in(room).emit('receive_start_game');
   });
 
+  socket.on("pick_question", (data) => {
+    if (data.reset) io.sockets.in(data.room).emit('receive_reset_questions');
+    io.sockets.in(data.room).emit('receive_pick_question', data.questionIndex);
+  });
+
   socket.on("advance_turn", (room) => {
     io.sockets.in(room).emit('receive_advance_turn');
   });

@@ -1,16 +1,22 @@
-
 import { useState, useEffect } from "react";
+import { useGameSession } from "../../utils/GameSessionContext";
 
-export default function Lobby ({ socket, roomId, setRoomId, setGameScreen, isHost, setIsHost, setMe }) {
+export default function Lobby () {
+
+  const { 
+    socket,
+    setGameScreen, 
+    roomId, 
+    joinRoom,
+    joinRoomAsHost, 
+    isHost
+  } = useGameSession();
   
   const [nameInput, setNameInput] = useState('');
   const [roomInput, setRoomInput] = useState('');
 
   useEffect(() => {
     if (roomId) {
-      setMe({
-        name: nameInput.trim()
-      });
       socket.emit("join_room", {
         roomId,
         isHost,
@@ -18,15 +24,14 @@ export default function Lobby ({ socket, roomId, setRoomId, setGameScreen, isHos
       });
       setGameScreen('waitingRoom');
     }
-  }, [socket, roomId, isHost, setMe, setGameScreen, nameInput]);
+  }, [socket, roomId, isHost, setGameScreen, nameInput]);
 
   const handleStartHost = async () => {
-    setIsHost(true);
-    setRoomId(generateRoomId());
+    joinRoomAsHost(generateRoomId());
   }
 
   const handleJoin = () => {
-    setRoomId(roomInput.trim());
+    joinRoom(roomInput.trim());
   }
 
   const handleInputChange = (e) => {
