@@ -49,6 +49,11 @@ const registerGameHandlers = (io, socket) => {
     io.sockets.in(data.room).emit('receive_pick_question', data.questionIndex);
   });
 
+  socket.on("picked_correct", ({players, room}) => {
+    players.find(e => e.id === socket.id).boardPosition += 1;
+    io.sockets.in(room).emit('receive_picked_correct', players);
+  });
+
   socket.on("advance_turn", (room) => {
     io.sockets.in(room).emit('receive_advance_turn');
   });

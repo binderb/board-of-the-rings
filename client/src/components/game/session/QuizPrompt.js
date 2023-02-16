@@ -5,6 +5,9 @@ export default function QuizPrompt () {
   const [picked, setPicked] = useState(false);
 
   const { 
+    socket,
+    roomId,
+    players,
     questionsLoading,
     questionsData,
     currentQuestion
@@ -16,9 +19,11 @@ export default function QuizPrompt () {
     if (!picked) {
       setPicked(true);
       if (isCorrect) {
+        socket.emit('picked_correct', {players, room: roomId});
         e.target.classList.remove('btn-primary');
         e.target.classList.add('btn-correct');
       } else {
+        socket.emit('picked_incorrect');
         e.target.classList.remove('btn-primary');
         e.target.classList.add('btn-incorrect');
       }

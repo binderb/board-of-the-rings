@@ -11,15 +11,21 @@ export default function GameSession () {
     players, 
     turn, 
     advanceTurn,
-    pickQuestion
+    pickQuestion,
+    setPlayers
   } = useGameSession();
   
   useEffect(() => {
+    socket.on('receive_picked_correct', (players) => {
+      setPlayers(players);
+    });
+
     socket.on('receive_advance_turn', () => {
       advanceTurn();
     });   
 
     return () => {
+      socket.off('receive_picked_correct');
       socket.off('receive_advance_turn');
     };
   }, [socket, players, advanceTurn]);
