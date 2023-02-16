@@ -41,6 +41,13 @@ export default function GameSessionProvider({ children }) {
     };
   }, [usedQuestions]);
 
+  useEffect( () => {
+    if (players && players[turn]) {
+      const turnPlayer = players[turn];
+      setBoardCameraPosition([turnPlayer.boardPosition, boardCameraPosition[1], boardCameraPosition[2]]);
+    }
+  }, [turn, players, boardCameraPosition, setBoardCameraPosition])
+
   // Methods
   const joinRoom = (id) => {
     setRoomId(id);

@@ -1,32 +1,41 @@
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import Marker from '../testboard/BoardSpace';
-
+import BoardSpace from './BoardSpace';
+import Player from './Player';
 import { useGameSession } from '../../../utils/GameSessionContext';
 
 export default function Scene () {
 
-  const { boardCameraPosition } = useGameSession();
+  const { 
+    boardCameraPosition,
+    players
+  } = useGameSession();
+
   const vec = new THREE.Vector3();
 
   useFrame(state => {
-    // state.camera.lookAt(boardCameraPosition);
     state.camera.position.lerp(vec.set(...boardCameraPosition), 0.1);
     state.camera.updateProjectionMatrix();
   });
 
   return (
     <>
-    {/* <PerspectiveCamera makeDefault> */}
-      <directionalLight color="green" position={[0,2,5]} />
-      <Marker position={[0,0,0]} />
-      <Marker position={[1,0,0]} />
-      <Marker position={[2,0,0]} />
-      <Marker position={[3,0,0]} />
-      <Marker position={[4,0,0]} />
-      <Marker position={[5,0,0]} />
-      <Marker position={[6,0,0]} />
-    {/* </PerspectiveCamera> */}
+      <ambientLight intensity={0.2} />
+      <directionalLight position={[0,2,5]} />
+      {players.map( (player, index) =>
+        <Player key={player.id} playerId={player.id} initialPosition={[index,0.55,(0+(index*-0.2))]} />
+      )}
+      <BoardSpace position={[0,0,0]} />
+      <BoardSpace position={[1,0,0]} />
+      <BoardSpace position={[2,0,0]} />
+      <BoardSpace position={[3,0,0]} />
+      <BoardSpace position={[4,0,0]} />
+      <BoardSpace position={[5,0,0]} />
+      <BoardSpace position={[6,0,0]} />
+      <BoardSpace position={[7,0,0]} />
+      <BoardSpace position={[8,0,0]} />
+      <BoardSpace position={[9,0,0]} />
+      <BoardSpace position={[10,0,0]} />
     </>
   );
 }
