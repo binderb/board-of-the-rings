@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useGameSession } from "../../utils/GameSessionContext";
 import QuizPrompt from './session/QuizPrompt';
+import Board from './session/Board';
 
 export default function GameSession () {
 
@@ -34,6 +35,7 @@ export default function GameSession () {
         <>
           <p>It's my turn!</p>
           <QuizPrompt />
+          {/* <Board /> */}
           <button className="btn btn-primary m-1" onClick={handlePassTurn}>Pass Turn</button>
         </>
         :

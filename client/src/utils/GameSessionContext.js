@@ -21,6 +21,7 @@ export default function GameSessionProvider({ children }) {
   const [turn, setTurn] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [usedQuestions, setUsedQuestions] = useState([]);
+  const [boardCameraPosition, setBoardCameraPosition] = useState([0,2,10]);
 
   useEffect(() => {
     socket.on('receive_reset_questions', () => {
@@ -102,7 +103,9 @@ export default function GameSessionProvider({ children }) {
       currentQuestion,
       pickQuestion,
       turn,
-      advanceTurn
+      advanceTurn,
+      boardCameraPosition,
+      setBoardCameraPosition
     }}>
       {children}
     </GameSessionContext.Provider>
