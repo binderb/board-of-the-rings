@@ -42,7 +42,7 @@ export default function GameSessionProvider({ children }) {
   }, [usedQuestions]);
 
   useEffect( () => {
-    if (players && players[turn]) {
+    if (players && players[turn] && boardCameraPosition[0] !== players[turn].boardPosition) {
       const turnPlayer = players[turn];
       setBoardCameraPosition([turnPlayer.boardPosition, boardCameraPosition[1], boardCameraPosition[2]]);
     }

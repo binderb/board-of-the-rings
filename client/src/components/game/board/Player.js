@@ -28,7 +28,7 @@ export default function Player ({initialPosition, playerId}) {
     const boardPositionX = (me.boardPosition + playerIndex*offset) - (players.length*offset / 2);
     const boardPositionY = 0.55;
     const boardPositionZ = (0 - playerIndex*offset) + (players.length*offset / 2);
-    playerRef.current.position.lerp(vec.set(boardPositionX,boardPositionY,boardPositionZ),0.05);
+    playerRef.current.position.lerp(vec.set(boardPositionX,boardPositionY,boardPositionZ),0.08);
   });
   
   return (
