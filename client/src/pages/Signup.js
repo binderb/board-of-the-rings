@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 // import { useMutation } from '@apollo/client';
 // import { ADD_PROFILE } from '../utils/mutations';
 
-// import Auth from '../utils/auth';
+import Auth from '../utils/auth';
 
 export default function Signup () {
   const [username, setUsername] = useState('');
