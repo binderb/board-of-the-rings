@@ -24,12 +24,9 @@ export default function Scene () {
       <directionalLight position={[0,2,5]} />
       {players.map( (player, index) => {
         const offset = 0.2;
-        // const boardPositionX = (player.boardPosition + index*offset) - ((players.length-1)*offset / 2);
-        // const boardPositionY = 0.55;
-        // const boardPositionZ = (0 - index*offset) + ((players.length-1)*offset / 2);
-        const boardPositionX = 0;
-        const boardPositionY = 0;
-        const boardPositionZ = 0;
+        const boardPositionX = (0 + index*offset) - ((players.length-1)*offset / 2);
+        const boardPositionY = 0.55;
+        const boardPositionZ = (0 - index*offset) + ((players.length-1)*offset / 2);
         return (
           <Player key={player.id} playerId={player.id} initialPosition={[boardPositionX,boardPositionY,boardPositionZ]} />
         );
