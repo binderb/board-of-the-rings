@@ -24,10 +24,10 @@ export default function Player ({initialPosition, playerId}) {
   useFrame (() => {
     const me = players.find(e => e.id === playerId);
     const playerIndex = players.indexOf(me);
-    const offset = 0.05;
-    const boardPositionX = (me.boardPosition + playerIndex*offset) - (players.length*offset / 2);
+    const offset = 0.2;
+    const boardPositionX = (me.boardPosition + playerIndex*offset) - ((players.length-1)*offset / 2);
     const boardPositionY = 0.55;
-    const boardPositionZ = (0 - playerIndex*offset) + (players.length*offset / 2);
+    const boardPositionZ = (0 - playerIndex*offset) + ((players.length-1)*offset / 2);
     playerRef.current.position.lerp(vec.set(boardPositionX,boardPositionY,boardPositionZ),0.08);
   });
   

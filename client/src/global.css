@@ -50,6 +50,9 @@
   .btn-primary:hover {
     @apply bg-primaryHover;
   }
+  .btn-primary:hover:disabled {
+    @apply bg-primary
+  }
   .btn-correct {
     @apply bg-correct text-highlight;
   }

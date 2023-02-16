@@ -20,6 +20,7 @@ export default function GameSessionProvider({ children }) {
   const [players, setPlayers] = useState([]);
   const [turn, setTurn] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [questionPicked, setQuestionPicked] = useState(false);
   const [usedQuestions, setUsedQuestions] = useState([]);
   const [boardCameraPosition, setBoardCameraPosition] = useState([0,2,10]);
 
@@ -73,6 +74,7 @@ export default function GameSessionProvider({ children }) {
   const advanceTurn = () => {
     if (turn >= players.length-1) setTurn(0);
     else setTurn(turn+1);
+    setQuestionPicked(false);
   }
 
   const pickQuestion = () => {
@@ -108,6 +110,8 @@ export default function GameSessionProvider({ children }) {
       players,
       setPlayers,
       currentQuestion,
+      questionPicked,
+      setQuestionPicked,
       pickQuestion,
       turn,
       advanceTurn,

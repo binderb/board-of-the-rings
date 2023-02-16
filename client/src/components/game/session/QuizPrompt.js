@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { useGameSession } from '../../../utils/GameSessionContext';
 
 export default function QuizPrompt () {
-  const [picked, setPicked] = useState(false);
 
   const { 
     socket,
@@ -10,14 +8,16 @@ export default function QuizPrompt () {
     players,
     questionsLoading,
     questionsData,
-    currentQuestion
+    currentQuestion,
+    questionPicked,
+    setQuestionPicked
   } = useGameSession();
 
   const questions = questionsData?.questions || [];
 
   const checkAnswer = (e, isCorrect) => {
-    if (!picked) {
-      setPicked(true);
+    if (!questionPicked) {
+      setQuestionPicked(true);
       if (isCorrect) {
         socket.emit('picked_correct', {players, room: roomId});
         e.target.classList.remove('btn-primary');
@@ -45,7 +45,7 @@ export default function QuizPrompt () {
       </p>
       <div id="answers">
         {questions[currentQuestion].answers.map( (answer) =>
-          <button key={answer.option} disabled={picked} className="btn btn-primary m-2 block" onClick={(e) => checkAnswer(e, answer.isCorrect)}>{answer.option}</button>
+          <button key={answer.option} disabled={questionPicked} className="btn btn-primary m-2 block" onClick={(e) => checkAnswer(e, answer.isCorrect)}>{answer.option}</button>
         )}
       </div>
     </section>

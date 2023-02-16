@@ -49,7 +49,7 @@ export default function GameSession () {
         <>
           <p>It's my turn!</p>
           <QuizPrompt />
-          <button className="btn btn-primary m-1" onClick={handlePassTurn}>Pass Turn</button>
+          <button className="btn btn-primary m-1 mb-2" onClick={handlePassTurn}>Pass Turn</button>
         </>
         :
         <>
