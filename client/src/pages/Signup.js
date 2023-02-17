@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 
 // import { useMutation } from '@apollo/client';
-// import { ADD_PROFILE } from '../utils/mutations';
+import { ADD_PROFILE } from '../utils/mutations';
 
-// import Auth from '../utils/auth';
+import AuthService from '../utils/auth';
 
 export default function Signup () {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+const authService = new AuthService();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -28,17 +30,19 @@ export default function Signup () {
       if (!response.ok) {
         throw new Error('Signup failed.');
       }
-      const { token } = await response.json(); // Get JWT from server response
 
-      localStorage.setItem('token', token); // Store JWT in local storage
+      const { token } = await response.json(); // Get JWT from server response
+      authService.login(token); // Store JWT in local storage using AuthService
+      setErrorMessage('Signup successful! Redirecting to login page...');
+      // localStorage.setItem('token', token); // Store JWT in local storage
     // ...
 
     // Reset form fields
 
-    setUsername('');
-    setEmail('');
-    setPassword('');
-    setErrorMessage('Signup successful! Redirecting to login page...');
+    // setUsername('');
+    // setEmail('');
+    // setPassword('');
+    // setErrorMessage('Signup successful! Redirecting to login page...');
 
     // Redirect to login page after a short delay
     setTimeout(() => {
