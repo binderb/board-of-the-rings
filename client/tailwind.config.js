@@ -7,7 +7,9 @@ module.exports = {
         dark : "var(--dark)",
         highlight : "var(--highlight)",
         primary: "var(--primary)",
-        primaryHover: "var(--primary-hover)"
+        primaryHover: "var(--primary-hover)",
+        correct: "var(--correct)",
+        incorrect: "var(--incorrect)"
       }
     },
   },

@@ -1,28 +1,45 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import SocketTest from './pages/SocketTest';
+import BoardTest from './pages/BoardTest';
 import Game from './pages/Game';
+import GameSessionProvider from './utils/GameSessionContext';
+
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
+    <ApolloProvider client={client}>
     <Router>
       <header className='p-4 py-2'>
       <Link to='/'>Home</Link>
       </header>
       <main className='p-4 py-2'>
+      <GameSessionProvider>
       <Routes>
-      <Route path='/' element={<Home/>} />
-      <Route path='/signup' element={<Signup/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/profile' element={<Profile/>} />
-      <Route path='/socket-test' element={<SocketTest/>} />
-      <Route path='/game-session' element={<Game/>} />
+        <Route path='/' element={<Home/>} />
+        <Route path='/signup' element={<Signup/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/socket-test' element={<SocketTest/>} />
+        <Route path='/board-test' element={<BoardTest/>} />
+        <Route path='/game-session' element={<Game/>} />
       </Routes>
+      </GameSessionProvider>
       </main>
     </Router>
+    </ApolloProvider>
   );
 }
 

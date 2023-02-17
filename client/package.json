@@ -5,6 +5,9 @@
   "proxy": "http://127.0.0.1:3001",
   "secure": false,
   "dependencies": {
+    "@apollo/client": "^3.7.7",
+    "@react-three/drei": "^9.56.24",
+    "@react-three/fiber": "^8.11.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,6 +18,8 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "^5.0.1",
     "socket.io-client": "^4.5.4",
+    "three": "^0.149.0",
+    "use-animated-sprite": "^1.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
