@@ -1,104 +1,105 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-// import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ADD_PROFILE } from '../utils/mutations';
 
-import AuthService from '../utils/auth';
+import Auth from '../utils/auth';
 
-export default function Signup () {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
-const authService = new AuthService();
+const Signup = () => {
+  const [formState, setFormState] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [addProfile, { error, data }] = useMutation(ADD_PROFILE);
 
-  const handleSubmit = async (event) => {
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(formState);
 
-    // Perform signup logic here
     try {
-      const response = await fetch('/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, email, password })
+      const { data } = await addProfile({
+        variables: { ...formState },
       });
 
-      if (!response.ok) {
-        throw new Error('Signup failed.');
-      }
-
-      const { token } = await response.json(); // Get JWT from server response
-      authService.login(token); // Store JWT in local storage using AuthService
-      setErrorMessage('Signup successful! Redirecting to login page...');
-      // localStorage.setItem('token', token); // Store JWT in local storage
-    // ...
-
-    // Reset form fields
-
-    // setUsername('');
-    // setEmail('');
-    // setPassword('');
-    // setErrorMessage('Signup successful! Redirecting to login page...');
-
-    // Redirect to login page after a short delay
-    setTimeout(() => {
-      window.location.href = '/login';
-    }, 1000);
-  } catch (error) {
-      setErrorMessage('Signup failed.');
+      Auth.login(data.addProfile.token);
+    } catch (e) {
+      console.error(e);
     }
   };
+
 
   return (
     <div className='p-4'>
     <h1>Signup</h1>
-    <form onSubmit={handleSubmit} className="signup-form">
-      <div className='form-group'>
-        <label htmlFor='username'>Username</label>
-        <input
-          type='text'
-          className='textfield'
-          id='username'
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          required
-        />
-      </div>
-      <div className='form-group'>
-        <label htmlFor='email'>Email</label>
-        <input
-          type='email'
-          className='textfield'
-          id='email'
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        />
-      </div>
-      <div className='form-group'>
-        <label htmlFor='password'>Password</label>
-        <input
-          type='password'
-          className='textfield'
-          id='password'
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-      </div>
-      <button type='submit' className='rounded bg-green-800 p-1 px-2 hover:bg-green-700'>
-        Signup
-      </button>
-    </form>
-    {errorMessage && (
+      {data ? (
+        <p>
+          Success! You may now head{' '}
+          <Link to="/">back to the homepage.</Link>
+        </p>
+      ) : (
+        <form onSubmit={handleFormSubmit} className="signup-form">
+          <div className='form-group'>
+            <label htmlFor='username'>Username</label>
+            <input
+              name='name'
+              type='text'
+              className='textfield'
+              id='username'
+              value={formState.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='email'>Email</label>
+            <input
+              name='email'
+              type='email'
+              className='textfield'
+              id='email'
+              value={formState.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='password'>Password</label>
+            <input
+              name='password'
+              type='password'
+              className='textfield'
+              id='password'
+              value={formState.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type='submit' className='rounded bg-green-800 p-1 px-2 hover:bg-green-700'>
+            Signup
+          </button>
+        </form>
+      )}
+    {error && (
       <div className='alert alert-danger mt-4' role='alert'>
-        {errorMessage}
+        {error.message}
       </div>
     )}
   </div>
   );
 }
+
+export default Signup;
