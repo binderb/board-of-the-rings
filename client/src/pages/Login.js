@@ -20,17 +20,6 @@ const Login = (props) => {
       });
     };
 
-
-// export default function Login() {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [errorMessage, setErrorMessage] = useState('');
-
-//   const authService = new AuthService();
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-
   const handleFormSubmit = async (event) => {
       event.preventDefault();
       console.log(formState);
@@ -50,31 +39,6 @@ const Login = (props) => {
         password: '',
       });
     };
-  
-  //   try {
-  //     const response = await fetch('/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({ email, password })
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Login failed.');
-  //     }
-
-  //     const { token } = await response.json();
-  //     authService.login(token);
-  //     setErrorMessage('Login successful! Redirecting to home page...');
-
-  //     setTimeout(() => {
-  //       window.location.href = '/';
-  //     }, 1000);
-  //   } catch (error) {
-  //     setErrorMessage('Invalid email or password.');
-  //   }
-  // };
 
   return (
     <div className='p-4'>
