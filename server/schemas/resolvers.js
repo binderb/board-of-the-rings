@@ -52,10 +52,8 @@ const resolvers = {
     },
     removeUser: async (parent, args, context) => {
       if (context) {
-        // return User.findOneAndDelete({ _id: context.user._id });
-        return { _id: "54845815djkdjdkjdkjdk", username: "Smeagol", email: "serkis@hotmail.com"}
+        return User.findOneAndDelete({ _id: context.user._id });
       }
-      else return { _id: "54845815djkdjdkjdkjdk", username: "Andy Serkis", email: "serkis@hotmail.com"}
     }
   }
 };
