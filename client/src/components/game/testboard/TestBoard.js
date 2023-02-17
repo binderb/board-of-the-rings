@@ -1,7 +1,10 @@
+import { useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Scene from '../board/Scene';
+import TestScene from './TestScene';
 
-export default function Board () {
+export default function TestBoard ({playerPosition, initialPlayerPosition}) {
+
+  const playerRef = useRef();
 
   const setupCamera = (state) => {
     state.camera.fov = 40;
@@ -13,7 +16,7 @@ export default function Board () {
   return (
     <section id='board' className='h-[200px] w-full bg-green-900'>
       <Canvas onCreated={setupCamera}>
-        <Scene />
+        <TestScene playerRef={playerRef} playerPosition={playerPosition} initialPlayerPosition={initialPlayerPosition} />
       </Canvas>
     </section>
   );

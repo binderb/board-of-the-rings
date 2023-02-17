@@ -20,7 +20,9 @@ export default function GameSessionProvider({ children }) {
   const [players, setPlayers] = useState([]);
   const [turn, setTurn] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [questionPicked, setQuestionPicked] = useState(false);
   const [usedQuestions, setUsedQuestions] = useState([]);
+  const [boardCameraPosition, setBoardCameraPosition] = useState([0,2,10]);
 
   useEffect(() => {
     socket.on('receive_reset_questions', () => {
@@ -39,6 +41,13 @@ export default function GameSessionProvider({ children }) {
       socket.off('receive_pick_question');
     };
   }, [usedQuestions]);
+
+  useEffect( () => {
+    if (players && players[turn] && boardCameraPosition[0] !== players[turn].boardPosition) {
+      const turnPlayer = players[turn];
+      setBoardCameraPosition([turnPlayer.boardPosition, boardCameraPosition[1], boardCameraPosition[2]]);
+    }
+  }, [turn, players, boardCameraPosition, setBoardCameraPosition])
 
   // Methods
   const joinRoom = (id) => {
@@ -65,6 +74,7 @@ export default function GameSessionProvider({ children }) {
   const advanceTurn = () => {
     if (turn >= players.length-1) setTurn(0);
     else setTurn(turn+1);
+    setQuestionPicked(false);
   }
 
   const pickQuestion = () => {
@@ -100,9 +110,13 @@ export default function GameSessionProvider({ children }) {
       players,
       setPlayers,
       currentQuestion,
+      questionPicked,
+      setQuestionPicked,
       pickQuestion,
       turn,
-      advanceTurn
+      advanceTurn,
+      boardCameraPosition,
+      setBoardCameraPosition
     }}>
       {children}
     </GameSessionContext.Provider>
