@@ -1006,3 +1006,22 @@ const questionSeed = [
     },
 
 ]
+db.Questions.deleteMany({})
+
+  .then(() => 
+    db.Questions.collection.insertMany(questionSeed))
+
+    .then((data) => {
+
+        console.log(data.result + ' records inserted!');
+
+        process.exit(0);
+
+    })
+
+    .catch((err) => {
+
+        console.error(err);
+
+        process.exit(1);
+    })
