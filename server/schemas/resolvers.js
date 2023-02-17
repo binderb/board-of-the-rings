@@ -1,25 +1,24 @@
-const { AuthenticationError } = require('apollo-server-express');
-const { Questions, User } = require('../models');
-const { signToken } = require('../utils/auth');
+const { AuthenticationError } = require("apollo-server-express");
+const { Questions, User } = require("../models");
+const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password')
+        const userData = await User.findOne({ _id: context.user._id }).select(
+          "-__v -password"
+        );
         return userData;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
     users: async () => {
-      return User.find()
-        .select('-__v -password')
+      return User.find().select("-__v -password");
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username })
-        .select('-__v -password')
+      return User.findOne({ username }).select("-__v -password");
     },
     questions: async () => {
       return Questions.find();
@@ -37,19 +36,28 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
-      
+        throw new AuthenticationError("Incorrect credentials");
       }
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
       return { token, user };
+    },
+    updateUser: async (parent, args) => {
+      return await User.findOneAndUpdate({ _id: id }, { username }, { args });
+    },
+    removeUser: async (parent, args, context) => {
+      if (context) {
+        // return User.findOneAndDelete({ _id: context.user._id });
+        return { _id: "54845815djkdjdkjdkjdk", username: "Smeagol", email: "serkis@hotmail.com"}
+      }
+      else return { _id: "54845815djkdjdkjdkjdk", username: "Andy Serkis", email: "serkis@hotmail.com"}
     }
   }
-}
+};
 
 module.exports = resolvers;
