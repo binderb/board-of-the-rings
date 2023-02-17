@@ -92,4 +92,27 @@
     box-sizing: border-box;
   }
 
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .login-form .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .login-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  .login-form input {
+    padding: 0.5rem;
+    border-radius: 4px;
+    /* border: 1px solid #ccc; */
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
 }
