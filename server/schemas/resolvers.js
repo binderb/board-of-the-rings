@@ -47,15 +47,20 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    updateUser: async (parent, args) => {
-      return await User.findOneAndUpdate({ _id: id }, { username }, { args });
+    updateUser: async (parent, args, context) => {
+      if (context.user._id) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $inc: { wins: 1} },
+          { new: true }
+        );
+        return updatedUser;
+      }
     },
     removeUser: async (parent, args, context) => {
       if (context) {
-        // return User.findOneAndDelete({ _id: context.user._id });
-        return { _id: "54845815djkdjdkjdkjdk", username: "Smeagol", email: "serkis@hotmail.com"}
+        return User.findOneAndDelete({ _id: context.user._id });
       }
-      else return { _id: "54845815djkdjdkjdkjdk", username: "Andy Serkis", email: "serkis@hotmail.com"}
     }
   }
 };
