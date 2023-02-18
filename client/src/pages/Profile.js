@@ -7,14 +7,13 @@ import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
-import { QUERY_SINGLE_PROFILE, QUERY_ME } from '../utils/queries';
-
+import { QUERY_SINGLE_USER, QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const Profile = (props) => {
   const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_SINGLE_PROFILE : QUERY_ME, {
+  const { loading, data } = useQuery(userParam ? QUERY_SINGLE_USER : QUERY_ME, {
     variables: { username: userParam },
   });
 
@@ -41,7 +40,7 @@ const Profile = (props) => {
 
   const handleClick = async () => {
     try {
-      await logout({
+      await Auth.logout({
         variables: { id: user._id },
       });
     } catch (e) {
