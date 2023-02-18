@@ -9,7 +9,7 @@ import Auth from '../utils/auth';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
   });
@@ -55,7 +55,7 @@ const Signup = () => {
           <div className='form-group'>
             <label htmlFor='username'>Username</label>
             <input
-              name='name'
+              name='username'
               type='text'
               className='textfield'
               id='username'
