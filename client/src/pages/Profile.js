@@ -11,9 +11,10 @@ import { QUERY_SINGLE_USER, QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
 
 const Profile = (props) => {
-  const { username: userParam } = useParams();
+  let { username: userParam } = useParams();
+userParam = Auth.getProfile().data.username
+
 console.log(userParam)
-console.log(props)
   const { loading, data } = useQuery(userParam ? QUERY_SINGLE_USER : QUERY_ME, {
     variables: { username: userParam },
   });
@@ -52,9 +53,7 @@ console.log(data)
   return (
     <>
     <div>
-        <h2>
-          Welcome {userParam ? `${user.username}`: "Player"}.
-        </h2>
+    <h2>Welcome {user.username ? user.username : "Player"}.</h2>
           <button onClick={handleClick}>
             Logout
           </button>
