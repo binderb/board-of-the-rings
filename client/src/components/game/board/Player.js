@@ -7,33 +7,35 @@ import { useGameSession } from '../../../utils/GameSessionContext';
 
 export default function Player ({initialPosition, playerId}) {
   const {
-    players
+    players,
+    boardStepSize
   } = useGameSession();
   const playerRef = useRef();
   const vec = new THREE.Vector3();
-  const playerTexture = useAnimatedSprite(playerRef, {
-    spriteSheetUrl: '/assets/textures/playerSheet.png',
-    xCount: 2,
+  const playerWalk = useAnimatedSprite(playerRef, {
+    spriteSheetUrl: '/assets/textures/playerSheet-Hobbit.png',
+    xCount: 5,
     yCount: 1,
     spriteFrames: 2,
-    spriteX: 1,
+    spriteX: 0,
     spriteY: 1,
-    interval: 0.5
+    intervalFunc: () => 0.5
   });
+
 
   useFrame (() => {
     const me = players.find(e => e.id === playerId);
     const playerIndex = players.indexOf(me);
-    const offset = 0.2;
-    const boardPositionX = (me.boardPosition + playerIndex*offset) - ((players.length-1)*offset / 2);
-    const boardPositionY = 0.55;
+    const offset = 0.5;
+    const boardPositionX = ((me.boardPosition*boardStepSize) + playerIndex*offset) - ((players.length-1)*offset / 2);
+    const boardPositionY = 1;
     const boardPositionZ = (0 - playerIndex*offset) + ((players.length-1)*offset / 2);
     playerRef.current.position.lerp(vec.set(boardPositionX,boardPositionY,boardPositionZ),0.08);
   });
   
   return (
-    <sprite ref={playerRef} position={initialPosition}>
-      <spriteMaterial map={playerTexture} />
+    <sprite scale={[1.5,2,1]} ref={playerRef} position={initialPosition}>
+      <spriteMaterial map={playerWalk} />
     </sprite>
   );
 }

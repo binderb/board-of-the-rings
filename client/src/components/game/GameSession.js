@@ -14,17 +14,21 @@ export default function GameSession () {
     pickQuestion,
     setPlayers,
     boardCameraPosition,
-    setBoardCameraPosition
+    setBoardCameraPosition,
+    boardStepSize
   } = useGameSession();
   
   useEffect(() => {
     socket.on('receive_picked_correct', (players) => {
       setPlayers(players);
+      console.log(boardCameraPosition);
+      console.log(boardStepSize);
       const newCameraPosition = [
-        boardCameraPosition[0]+1,
+        boardCameraPosition[0]+boardStepSize,
         boardCameraPosition[1],
         boardCameraPosition[2]
       ]
+      console.log(newCameraPosition);
       setBoardCameraPosition(newCameraPosition);
     });
 
@@ -36,7 +40,7 @@ export default function GameSession () {
       socket.off('receive_picked_correct');
       socket.off('receive_advance_turn');
     };
-  }, [socket, players, setPlayers, advanceTurn, boardCameraPosition, setBoardCameraPosition]);
+  }, [socket, players, setPlayers, advanceTurn, boardCameraPosition, setBoardCameraPosition, boardStepSize]);
 
   const handlePassTurn = () => {
     pickQuestion();
@@ -45,18 +49,18 @@ export default function GameSession () {
 
   return (
     <>
+      <Board />
       {(players[turn].id === socket.id) ?
         <>
-          <p>It's my turn!</p>
+          <p className="mt-3">It's my turn!</p>
           <QuizPrompt />
           <button className="btn btn-primary m-1 mb-2" onClick={handlePassTurn}>Pass Turn</button>
         </>
         :
         <>
-        <p>It's {players[turn].name}'s turn.</p>
+        <p className="mt-3">It's {players[turn].name}'s turn.</p>
         </>
       }
-      <Board />
     </>
   );
 }

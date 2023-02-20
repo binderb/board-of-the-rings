@@ -11,7 +11,8 @@ const registerGameHandlers = (io, socket) => {
         id: roommate.id,
         name: roommate.data.playerName,
         isHost: roommate.data.isHost,
-        boardPosition: 0
+        boardPosition: 0,
+        animationState: 'walking'
       });
     }
     console.log(`User ${socket.data.playerName} (${socket.id}) joined room ${data.roomId}.`);
@@ -28,7 +29,8 @@ const registerGameHandlers = (io, socket) => {
         id: roommate.id,
         name: roommate.data.playerName,
         isHost: roommate.data.isHost,
-        boardPosition: 0
+        boardPosition: 0,
+        animationState: 'walking'
       });
     }
     console.log(`User ${socket.data.playerName} (${socket.id}) left room ${data}.`);
