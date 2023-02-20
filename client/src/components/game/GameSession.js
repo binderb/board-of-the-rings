@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useGameSession } from "../../utils/GameSessionContext";
 import QuizPrompt from './session/QuizPrompt';
 import Board from './session/Board';
+import Auth from '../../utils/auth';
 
 export default function GameSession () {
 
@@ -45,6 +46,15 @@ export default function GameSession () {
   const handlePassTurn = () => {
     pickQuestion();
     socket.emit('advance_turn', roomId);
+  }
+
+  if (!Auth.loggedIn) {
+    return (
+      <>
+      <p>You need to be logged in to view this page!</p>
+      <button className="btn btn-primary m-1" onClick={() => window.location.replace('/')}>Return to Home Page</button>
+      </>
+    );
   }
 
   return (

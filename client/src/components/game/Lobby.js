@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useGameSession } from "../../utils/GameSessionContext";
+import Auth from '../../utils/auth';
+import { Link } from 'react-router-dom';
 
 export default function Lobby () {
 
@@ -14,17 +16,18 @@ export default function Lobby () {
   
   const [nameInput, setNameInput] = useState('');
   const [roomInput, setRoomInput] = useState('');
+  const me = Auth.getPlayerInfo()?.data;
 
   useEffect(() => {
     if (roomId) {
       socket.emit("join_room", {
         roomId,
         isHost,
-        playerName: nameInput.trim(),
+        playerName: me.username,
       });
       setGameScreen('waitingRoom');
     }
-  }, [socket, roomId, isHost, setGameScreen, nameInput]);
+  }, [socket, roomId, isHost, setGameScreen, nameInput, me]);
 
   const handleStartHost = async () => {
     joinRoomAsHost(generateRoomId());
@@ -46,11 +49,20 @@ export default function Lobby () {
     return code.join('');
   }
 
+  if (!Auth.loggedIn) {
+    return (
+      <>
+      <p>You need to be logged in to view this page!</p>
+      <button className="btn btn-primary m-1" onClick={() => window.location.replace('/')}>Return to Home Page</button>
+      </>
+    );
+  }
+
   return (
     <section id="lobby">
+      <Link to='/profile'>&larr; Back to Profile</Link>
       <div className="p-1">
-        <label htmlFor="name-input" className="pr-2">Enter your name:</label>
-        <input name="name-input" className="textfield" value={nameInput} onChange={handleInputChange}></input>
+        <label htmlFor="name-input" className="pr-2">You are playing as: {me.username}</label>
       </div>
       <p className="p-1">Host a game:
         <button className="ml-2 btn btn-primary" onClick={handleStartHost}>Host</button>

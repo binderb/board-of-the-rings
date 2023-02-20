@@ -10,10 +10,6 @@ export default function Home () {
     </p>
     <Link to='/signup'>Signup Page</Link><br/>
     <Link to='/login'>Login Page</Link><br/>
-    <Link to='/profile'>Profile Page</Link><br/>
-    <Link to='/socket-test'>Socket Test Page</Link><br/>
-    <Link to='/board-test'>Board Test Page</Link><br/>
-    <Link to='/game-session'>Game Session</Link>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -39,10 +39,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
     <Router>
-      <header className='p-4 py-2'>
-      <Link to='/'>Home</Link>
-      </header>
-      <main className='p-4 py-2'>
+      <main className='p-4 py-4'>
       <GameSessionProvider>
       <Routes>
         <Route path='/' element={<Home/>} />
