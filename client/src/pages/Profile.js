@@ -73,16 +73,23 @@ import { DELETE_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Profile = () => {
-  const { loading, data } = useQuery(QUERY_ME);
+  const { loading, data, error } = useQuery(QUERY_ME);
   const [deleteUser] = useMutation(DELETE_USER);
+
+  if (!Auth.loggedIn()) {
+    return (
+      <p>You must be logged in to view this page!</p>
+    );
+  }
 
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  console.log("data: ",data);
+  console.log("error: ", error);
   const user = data?.me || {};
-console.log(Auth.loggedIn())
-console.log(user)
+  console.log(Auth.loggedIn())
+  console.log(user)
   const handleLogout = () => {
     Auth.logout();
   };
