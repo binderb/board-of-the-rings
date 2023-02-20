@@ -17,6 +17,7 @@ module.exports = {
     }
 
     if (!token) {
+      console.log('no token supplied');
       return req;
     }
     console.log("Here's the token:", token)

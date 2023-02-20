@@ -13,6 +13,7 @@ const socket = io();
 export default function GameSessionProvider({ children }) {
   
   // Global variables for the game session
+  const boardStepSize = 3;
   const { loading: questionsLoading, data: questionsData } = useQuery(QUERY_QUESTIONS);
   const [gameScreen, setGameScreen] = useState('lobby');
   const [roomId, setRoomId] = useState('');
@@ -43,11 +44,11 @@ export default function GameSessionProvider({ children }) {
   }, [usedQuestions]);
 
   useEffect( () => {
-    if (players && players[turn] && boardCameraPosition[0] !== players[turn].boardPosition) {
+    if (players && players[turn] && boardCameraPosition[0] !== (players[turn].boardPosition*boardStepSize)) {
       const turnPlayer = players[turn];
-      setBoardCameraPosition([turnPlayer.boardPosition, boardCameraPosition[1], boardCameraPosition[2]]);
+      setBoardCameraPosition([(turnPlayer.boardPosition*boardStepSize), boardCameraPosition[1], boardCameraPosition[2]]);
     }
-  }, [turn, players, boardCameraPosition, setBoardCameraPosition])
+  }, [turn, players, boardCameraPosition, setBoardCameraPosition, boardStepSize])
 
   // Methods
   const joinRoom = (id) => {
@@ -116,7 +117,8 @@ export default function GameSessionProvider({ children }) {
       turn,
       advanceTurn,
       boardCameraPosition,
-      setBoardCameraPosition
+      setBoardCameraPosition,
+      boardStepSize
     }}>
       {children}
     </GameSessionContext.Provider>

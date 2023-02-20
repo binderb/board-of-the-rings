@@ -1,9 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  createHttpLink
 } from "@apollo/client";
+import { setContext } from '@apollo/client/link/context';
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -12,20 +14,32 @@ import SocketTest from './pages/SocketTest';
 import BoardTest from './pages/BoardTest';
 import Game from './pages/Game';
 import GameSessionProvider from './utils/GameSessionContext';
+import Auth from './utils/auth';
+
+const graphQLuri = createHttpLink({
+  uri: '/graphql'
+});
+
+const headersWithAuth = setContext((_, { headers }) => {
+  const token = Auth.getToken();
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  }
+});
 
 const client = new ApolloClient({
-  uri: '/graphql',
-  cache: new InMemoryCache(),
+  link: headersWithAuth.concat(graphQLuri),
+  cache: new InMemoryCache()
 });
 
 function App() {
   return (
     <ApolloProvider client={client}>
     <Router>
-      <header className='p-4 py-2'>
-      <Link to='/'>Home</Link>
-      </header>
-      <main className='p-4 py-2'>
+      <main className='p-4 py-4'>
       <GameSessionProvider>
       <Routes>
         <Route path='/' element={<Home/>} />

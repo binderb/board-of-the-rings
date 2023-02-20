@@ -25,23 +25,23 @@ export default function Scene () {
       {players.map( (player, index) => {
         const offset = 0.2;
         const boardPositionX = (0 + index*offset) - ((players.length-1)*offset / 2);
-        const boardPositionY = 0.55;
+        const boardPositionY = 1.05;
         const boardPositionZ = (0 - index*offset) + ((players.length-1)*offset / 2);
         return (
           <Player key={player.id} playerId={player.id} initialPosition={[boardPositionX,boardPositionY,boardPositionZ]} />
         );
       })}
       <BoardSpace position={[0,0,0]} />
-      <BoardSpace position={[1,0,0]} />
-      <BoardSpace position={[2,0,0]} />
       <BoardSpace position={[3,0,0]} />
+      <BoardSpace position={[6,0,0]} />
+      {/* <BoardSpace position={[3,0,0]} />
       <BoardSpace position={[4,0,0]} />
       <BoardSpace position={[5,0,0]} />
       <BoardSpace position={[6,0,0]} />
       <BoardSpace position={[7,0,0]} />
       <BoardSpace position={[8,0,0]} />
       <BoardSpace position={[9,0,0]} />
-      <BoardSpace position={[10,0,0]} />
+      <BoardSpace position={[10,0,0]} /> */}
     </>
   );
 }
