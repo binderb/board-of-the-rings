@@ -23,3 +23,11 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const DELETE_USER = gql`
+  mutation DELETE_USER($userId: ID!) {
+    deleteUser(userId: $userId) {
+      message
+    }
+  }
+`;
