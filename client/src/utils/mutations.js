@@ -24,10 +24,10 @@ export const LOGIN_USER = gql`
   }
 `;
 
-export const DELETE_USER = gql`
-  mutation DELETE_USER($userId: ID!) {
-    deleteUser(userId: $userId) {
-      message
+export const REMOVE_USER = gql`
+  mutation REMOVE_USER($id: ID!) {
+    removeUser(_id: $id) {
+      username
     }
   }
 `;

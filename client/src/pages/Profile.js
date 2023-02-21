@@ -5,16 +5,12 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
-import { DELETE_USER } from '../utils/mutations';
+import { REMOVE_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Profile = () => {
   const { loading, data } = useQuery(QUERY_ME);
-  const [deleteUser] = useMutation(DELETE_USER, {
-    variables: {
-      _id: Auth.getPlayerInfo()._id
-    }
-  });
+  const [removeUser] = useMutation(REMOVE_USER);
 
   if (!Auth.loggedIn()) {
     return (
@@ -34,8 +30,15 @@ const Profile = () => {
   const handleDelete = async () => {
     const confirmDelete = window.confirm("Are you sure? You will need to create a new profile to play again.");
     if (confirmDelete) {
+      console.log(Auth.getPlayerInfo());
       try {
-        await deleteUser();
+        await removeUser(
+          {
+            variables: {
+              id: Auth.getPlayerInfo().data._id
+            }
+          }
+        );
         Auth.logout();
       } catch (e) {
         console.error(e);
@@ -68,3 +71,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
