@@ -114,5 +114,28 @@
     width: 100%;
     box-sizing: border-box;
   }
-
+  .medieval {
+    font-family: 'MedievalSharp';
+  }
+  h2 {
+    font-family: 'MedievalSharp';
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    text-decoration: underline;
+  }
+  h4 {
+    font-family: 'MedievalSharp';
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
+  .ruleset {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  li {
+    list-style: none;
+  }
 }

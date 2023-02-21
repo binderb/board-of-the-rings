@@ -10,6 +10,7 @@ export default function Home () {
     </p>
     <Link to='/signup'>Signup Page</Link><br/>
     <Link to='/login'>Login Page</Link><br/>
+    <Link to='/rules'>Game Rules</Link><br/>
     </>
   );
 }
