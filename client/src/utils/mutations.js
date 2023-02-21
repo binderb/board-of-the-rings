@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
@@ -28,6 +28,19 @@ export const REMOVE_USER = gql`
   mutation REMOVE_USER($id: ID!) {
     removeUser(_id: $id) {
       username
+    }
+  }
+`;
+
+export const DISPLAY_NAME = gql`
+  mutation DISPLAY_NAME($displayName: String!) {
+    updateDisplayName(displayName: $displayName) {
+      token
+      user {
+        username
+        email
+        _id
+      }
     }
   }
 `;
