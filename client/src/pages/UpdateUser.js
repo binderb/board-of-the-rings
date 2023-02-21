@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { UPDATE_USERNAME } from '../utils/mutations';
+import { DISPLAY_NAME } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const UpdateUsername = () => {
   const [formState, setFormState] = useState({ username: '' });
   const [updateUsername, { error }] = useMutation(UPDATE_USERNAME);
+  const [updateDisplayName] = useMutation(DISPLAY_NAME);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -35,6 +37,25 @@ const UpdateUsername = () => {
     });
   };
 
+  const handleDisplayNameUpdate = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { data } = await updateDisplayName({
+        variables: {
+          displayName: formState.displayName
+        }
+      });
+      console.log(data);
+      // display name updated successfully
+      window.location.href = '/profile';
+    } catch (e) {
+      console.error(e);
+    }
+
+    setFormState({ displayName: '' });
+  };
+
   return (
     <div>
       <h1>Update Username</h1>
@@ -53,6 +74,24 @@ const UpdateUsername = () => {
         </div>
 
         {error && <div className="my-3 p-3 bg-danger text-white">{error.message}</div>}
+
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" type="submit">Submit</button>
+      </form>
+
+      <h1>Update Display Name</h1>
+      <form className="signup-form" onSubmit={handleDisplayNameUpdate}>
+        <div className="form-group">
+          <label htmlFor="displayName">New Display Name:</label>
+          <input
+            className="form-input"
+            placeholder="Enter new display name"
+            name="displayName"
+            type="text"
+            id="displayName"
+            value={formState.displayName}
+            onChange={handleChange}
+          />
+        </div>
 
         <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" type="submit">Submit</button>
       </form>
