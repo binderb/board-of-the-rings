@@ -34,6 +34,7 @@ export default function Scene () {
       <BoardSpace position={[0,0,0]} />
       <BoardSpace position={[3,0,0]} />
       <BoardSpace position={[6,0,0]} />
+      <BoardSpace position={[9,0,0]} />
       {/* <BoardSpace position={[3,0,0]} />
       <BoardSpace position={[4,0,0]} />
       <BoardSpace position={[5,0,0]} />
