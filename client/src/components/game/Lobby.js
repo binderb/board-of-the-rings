@@ -23,7 +23,7 @@ export default function Lobby () {
       socket.emit("join_room", {
         roomId,
         isHost,
-        playerName: me.username,
+        playerName: me.displayName,
       });
       setGameScreen('waitingRoom');
     }
@@ -62,7 +62,7 @@ export default function Lobby () {
     <section id="lobby">
       <Link to='/profile'>&larr; Back to Profile</Link>
       <div className="p-1">
-        <label htmlFor="name-input" className="pr-2">You are playing as: {me.username}</label>
+        <label htmlFor="name-input" className="pr-2">You are playing as: {me.displayName}</label>
       </div>
       <p className="p-1">Host a game:
         <button className="ml-2 btn btn-primary" onClick={handleStartHost}>Host</button>
