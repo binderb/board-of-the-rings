@@ -69,12 +69,12 @@
 import React from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
-import { DELETE_USER } from '../utils/mutations';
+import { REMOVE_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Profile = () => {
   const { loading, data } = useQuery(QUERY_ME);
-  const [deleteUser] = useMutation(DELETE_USER);
+  const [removeUser] = useMutation(REMOVE_USER);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -89,7 +89,7 @@ console.log(user)
 
   const handleDelete = async () => {
     try {
-      await deleteUser();
+      await removeUser();
       Auth.logout();
     } catch (e) {
       console.error(e);
