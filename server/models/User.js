@@ -19,6 +19,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
+  displayName: {
+    type: String,
+    trim: true
+  },
   wins: {
     type: Number,
     default: 0
