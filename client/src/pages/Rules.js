@@ -44,7 +44,7 @@ export default function Rules() {
         <p>
           When a player advances to the final board space (Mount Doom), play
           does not pass to the next player. Instead, the player in the final
-          space has a chase to win the game with one final question. If the
+          space has a chance to win the game with one final question. If the
           question is answered correctly, the game is over! If not, play passes
           to the next player until someone ends the game by correctly answering
           a question in the Mount Doom game board space.
