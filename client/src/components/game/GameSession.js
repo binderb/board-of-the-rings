@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useGameSession } from "../../utils/GameSessionContext";
+import { useMutation } from '@apollo/client';
 import QuizPrompt from './session/QuizPrompt';
 import Board from './session/Board';
 import Auth from '../../utils/auth';
+// import { }
 
 export default function GameSession () {
 
@@ -16,20 +18,33 @@ export default function GameSession () {
     setPlayers,
     boardCameraPosition,
     setBoardCameraPosition,
-    boardStepSize
+    boardStepSize,
+    boardMax
   } = useGameSession();
+
+  // const [incrementWins] = useMutation()
   
   useEffect(() => {
     socket.on('receive_picked_correct', (players) => {
       setPlayers(players);
-      console.log(boardCameraPosition);
-      console.log(boardStepSize);
       const newCameraPosition = [
         boardCameraPosition[0]+boardStepSize,
         boardCameraPosition[1],
         boardCameraPosition[2]
       ]
-      console.log(newCameraPosition);
+      setBoardCameraPosition(newCameraPosition);
+    });
+
+    socket.on('receive_win_condition', (players) => {
+      setPlayers(players);
+      const winner = players.find(e => e.boardPosition === boardMax);
+
+      console.log(winner.id === socket.id ? `I won!` : `${winner.name} won!`);
+      const newCameraPosition = [
+        boardCameraPosition[0]+boardStepSize,
+        boardCameraPosition[1],
+        boardCameraPosition[2]
+      ]
       setBoardCameraPosition(newCameraPosition);
     });
 
@@ -39,9 +54,10 @@ export default function GameSession () {
 
     return () => {
       socket.off('receive_picked_correct');
+      socket.off('receive_win_condition');
       socket.off('receive_advance_turn');
     };
-  }, [socket, players, setPlayers, advanceTurn, boardCameraPosition, setBoardCameraPosition, boardStepSize]);
+  }, [socket, players, setPlayers, advanceTurn, boardCameraPosition, setBoardCameraPosition, boardStepSize, boardMax]);
 
   const handlePassTurn = () => {
     pickQuestion();

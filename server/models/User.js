@@ -21,10 +21,12 @@ const userSchema = new Schema({
   },
   displayName: {
     type: String,
+    required: true,
     trim: true
   },
   wins: {
     type: Number,
+    required: true,
     default: 0
   }
 },

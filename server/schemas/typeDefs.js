@@ -15,6 +15,8 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
+    displayName: String!
+    wins: Int!
   }
   type Auth {
     token: ID!
@@ -30,8 +32,8 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!, displayName: String): Auth
-    updateUser(_id: ID!, username: String, wins: Int): User
+    addUser(username: String!, email: String!, displayName: String!, password: String!): Auth
+    updateMyWins: User
     updateUsername(username: String!): Auth
     updateDisplayName(displayName: String!): Auth
     removeUser(_id: ID!): User

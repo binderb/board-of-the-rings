@@ -14,6 +14,7 @@ export default function GameSessionProvider({ children }) {
   
   // Global variables for the game session
   const boardStepSize = 3;
+  const boardMax = 3;
   const { loading: questionsLoading, data: questionsData } = useQuery(QUERY_QUESTIONS);
   const [gameScreen, setGameScreen] = useState('lobby');
   const [roomId, setRoomId] = useState('');
@@ -118,7 +119,8 @@ export default function GameSessionProvider({ children }) {
       advanceTurn,
       boardCameraPosition,
       setBoardCameraPosition,
-      boardStepSize
+      boardStepSize,
+      boardMax
     }}>
       {children}
     </GameSessionContext.Provider>

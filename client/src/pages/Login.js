@@ -75,11 +75,11 @@ const Login = (props) => {
           </button>
         </form>
       )}
-      {error && (
+      {error ? (
         <div className='alert alert-danger mt-4' role='alert'>
-          {error.Message}
+          {error.message}
         </div>
-      )}
+      ) : null}
     </div>
   );
       }
