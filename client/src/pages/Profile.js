@@ -50,11 +50,11 @@ const Profile = () => {
     <div>
       <div className="flex justify-between items-center bg-green-900 p-3">
         <h1 className='p-0 m-0 leading-none'>Welcome, {user.username}</h1>
-        <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={handleLogout}>Logout</button>
       </div>
       <div className="p-4">
         <p>Adventure awaits!</p>
-          <button className="btn btn-primary m-1" onClick={() => window.location.replace('/game-session')}>Host or Join a Game!</button>
+          <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={() => window.location.replace('/game-session')}>Host or Join a Game!</button>
       </div>
       <div className="p-4">
         <p>Here are your stats:</p>
@@ -62,8 +62,8 @@ const Profile = () => {
       </div>
       <div className="p-4">
         <p>Profile management:</p>
-        <button className="btn btn-primary m-1" onClick={() => window.location.replace('/update-user')}>Change Username</button>
-        <button className="btn btn-primary m-1" onClick={handleDelete}>Delete Profile</button>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={() => window.location.replace('/update-user')}>Change Username</button><br></br><br></br>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={handleDelete}>Delete Profile</button>
       </div>
       
     </div>
