@@ -15,6 +15,7 @@ import BoardTest from './pages/BoardTest';
 import Game from './pages/Game';
 import GameSessionProvider from './utils/GameSessionContext';
 import Auth from './utils/auth';
+import Rules from './pages/Rules';
 
 const graphQLuri = createHttpLink({
   uri: '/graphql'
@@ -49,6 +50,7 @@ function App() {
         <Route path='/socket-test' element={<SocketTest/>} />
         <Route path='/board-test' element={<BoardTest/>} />
         <Route path='/game-session' element={<Game/>} />
+        <Route path='/rules' element={<Rules/>} />
       </Routes>
       </GameSessionProvider>
       </main>
