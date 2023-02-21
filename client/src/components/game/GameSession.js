@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useGameSession } from "../../utils/GameSessionContext";
 import { useMutation } from '@apollo/client';
 import QuizPrompt from './session/QuizPrompt';
+import GameOver from './session/GameOver';
 import Board from './session/Board';
 import Auth from '../../utils/auth';
-// import { }
+import { UPDATE_MY_WINS } from "../../utils/mutations";
 
 export default function GameSession () {
 
@@ -19,10 +20,14 @@ export default function GameSession () {
     boardCameraPosition,
     setBoardCameraPosition,
     boardStepSize,
-    boardMax
+    boardMax,
+    gameOver,
+    setGameOver,
+    setWinner,
+    resetGameSession
   } = useGameSession();
 
-  // const [incrementWins] = useMutation()
+  const [incrementWins] = useMutation(UPDATE_MY_WINS);
   
   useEffect(() => {
     socket.on('receive_picked_correct', (players) => {
@@ -35,29 +40,38 @@ export default function GameSession () {
       setBoardCameraPosition(newCameraPosition);
     });
 
-    socket.on('receive_win_condition', (players) => {
+    socket.on('receive_win_condition', async (players) => {
       setPlayers(players);
-      const winner = players.find(e => e.boardPosition === boardMax);
-
-      console.log(winner.id === socket.id ? `I won!` : `${winner.name} won!`);
       const newCameraPosition = [
         boardCameraPosition[0]+boardStepSize,
         boardCameraPosition[1],
         boardCameraPosition[2]
       ]
       setBoardCameraPosition(newCameraPosition);
+      const winner = players.find(e => e.boardPosition === boardMax);
+      setWinner(winner);
+      setGameOver(true);
+      console.log(winner.id === socket.id ? `I won!` : `${winner.name} won!`);
+      if (winner.id === socket.id) {
+        await incrementWins();
+      }
     });
 
     socket.on('receive_advance_turn', () => {
       advanceTurn();
-    });   
+    });
+
+    socket.on('receive_end_game', () => {
+      resetGameSession();
+      window.location.replace('/profile');
+    });
 
     return () => {
       socket.off('receive_picked_correct');
       socket.off('receive_win_condition');
       socket.off('receive_advance_turn');
     };
-  }, [socket, players, setPlayers, advanceTurn, boardCameraPosition, setBoardCameraPosition, boardStepSize, boardMax]);
+  });
 
   const handlePassTurn = () => {
     pickQuestion();
@@ -76,16 +90,26 @@ export default function GameSession () {
   return (
     <>
       <Board />
-      {(players[turn].id === socket.id) ?
+      {!gameOver ? 
+        // The game is still going.
         <>
-          <p className="mt-3">It's my turn!</p>
-          <QuizPrompt />
-          <button className="btn btn-primary m-1 mb-2" onClick={handlePassTurn}>Pass Turn</button>
+        {(players[turn].id === socket.id) ?
+          // It's my turn.
+          <>
+            <p className="mt-3">It's my turn!</p>
+            <QuizPrompt />
+            <button className="btn btn-primary m-1 mb-2" onClick={handlePassTurn}>Pass Turn</button>
+          </>
+          :
+          // It's another player's turn.
+          <>
+            <p className="mt-3">It's {players[turn].name}'s turn.</p>
+          </>
+        }
         </>
-        :
-        <>
-        <p className="mt-3">It's {players[turn].name}'s turn.</p>
-        </>
+      :
+        // The game is over and we have a winner!
+        <GameOver />
       }
     </>
   );

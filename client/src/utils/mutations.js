@@ -30,6 +30,13 @@ export const REMOVE_USER = gql`
   }
 `;
 
+export const UPDATE_MY_WINS = gql`
+  mutation UPDATE_MY_WINS {
+    updateMyWins {
+      wins
+    }
+  }
+`;
 
 export const UPDATE_USERNAME = gql`
 mutation UPDATE_USERNAME($username: String!) {

@@ -67,6 +67,10 @@ const registerGameHandlers = (io, socket) => {
   socket.on("advance_turn", (room) => {
     io.sockets.in(room).emit('receive_advance_turn');
   });
+
+  socket.on("end_game", (room) => {
+    io.sockets.in(room).emit('receive_end_game');
+  });
   
   socket.on("send_message", (data) => {
     socket.broadcast.emit("receive_message", data);
