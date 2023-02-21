@@ -1,4 +1,5 @@
 const registerGameHandlers = (io, socket) => {
+  const boardMax = 3;
 
   socket.on("join_room", async (data) => {
     await socket.join(data.roomId);
@@ -52,12 +53,23 @@ const registerGameHandlers = (io, socket) => {
   });
 
   socket.on("picked_correct", ({players, room}) => {
-    players.find(e => e.id === socket.id).boardPosition += 1;
-    io.sockets.in(room).emit('receive_picked_correct', players);
+    const correct_player = players.find(e => e.id === socket.id);
+    correct_player.boardPosition += 1;
+    if (correct_player.boardPosition == boardMax) {
+
+      io.sockets.in(room).emit('receive_win_condition', players);
+    } else {
+      io.sockets.in(room).emit('receive_picked_correct', players);
+    }
+    
   });
 
   socket.on("advance_turn", (room) => {
     io.sockets.in(room).emit('receive_advance_turn');
+  });
+
+  socket.on("end_game", (room) => {
+    io.sockets.in(room).emit('receive_end_game');
   });
   
   socket.on("send_message", (data) => {

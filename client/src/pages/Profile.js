@@ -57,8 +57,9 @@ const Profile = () => {
           <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={() => window.location.replace('/game-session')}>Host or Join a Game!</button>
       </div>
       <div className="p-4">
-        <p>Here are your stats:</p>
-        {/* Need to include the wins (and losses?) here for the player to see! */}
+        <p>Player Info:</p>
+        <p>Display Name: {user.displayName}</p>
+        <p>Wins: {user.wins}</p>
       </div>
       <div className="p-4">
         <p>Profile management:</p>

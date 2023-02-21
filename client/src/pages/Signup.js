@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
@@ -10,6 +8,7 @@ import Auth from '../utils/auth';
 const Signup = () => {
   const [formState, setFormState] = useState({
     username: '',
+    displayName: '',
     email: '',
     password: '',
   });
@@ -37,6 +36,7 @@ const Signup = () => {
 
       Auth.login(data.addUser.token);
     } catch (e) {
+
       console.error(e);
     }
   };
@@ -45,12 +45,8 @@ const Signup = () => {
   return (
     <div className='p-4'>
     <h1>Signup</h1>
-      {data ? (
-        <p>
-          Success! You may now head{' '}
-          <Link to="/">back to the homepage.</Link>
-        </p>
-      ) : (
+      {data ? window.location.replace('/profile')
+        : (
         <form onSubmit={handleFormSubmit} className="signup-form">
           <div className='form-group'>
             <label htmlFor='username'>Username</label>
@@ -60,6 +56,18 @@ const Signup = () => {
               className='textfield'
               id='username'
               value={formState.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='displayName'>Display Name</label>
+            <input
+              name='displayName'
+              type='text'
+              className='textfield'
+              id='displayName'
+              value={formState.displayName}
               onChange={handleChange}
               required
             />
@@ -93,11 +101,11 @@ const Signup = () => {
           </button>
         </form>
       )}
-    {error && (
+    {error ? (
       <div className='alert alert-danger mt-4' role='alert'>
         {error.message}
       </div>
-    )}
+    ) : null}
   </div>
   );
 }

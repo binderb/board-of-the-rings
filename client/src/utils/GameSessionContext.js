@@ -13,7 +13,9 @@ const socket = io();
 export default function GameSessionProvider({ children }) {
   
   // Global variables for the game session
+  const initialCameraPosition = [0,2,10];
   const boardStepSize = 3;
+  const boardMax = 3;
   const { loading: questionsLoading, data: questionsData } = useQuery(QUERY_QUESTIONS);
   const [gameScreen, setGameScreen] = useState('lobby');
   const [roomId, setRoomId] = useState('');
@@ -23,7 +25,9 @@ export default function GameSessionProvider({ children }) {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [questionPicked, setQuestionPicked] = useState(false);
   const [usedQuestions, setUsedQuestions] = useState([]);
-  const [boardCameraPosition, setBoardCameraPosition] = useState([0,2,10]);
+  const [boardCameraPosition, setBoardCameraPosition] = useState(initialCameraPosition);
+  const [gameOver, setGameOver] = useState(false);
+  const [winner, setWinner] = useState(null);
 
   useEffect(() => {
     socket.on('receive_reset_questions', () => {
@@ -93,9 +97,22 @@ export default function GameSessionProvider({ children }) {
     }
   }
 
+  const resetGameSession = () => {
+    setRoomId(null);
+    setIsHost(false);
+    setGameScreen('lobby');
+    setPlayers([]);
+    setTurn(0);
+    setCurrentQuestion(null);
+    setQuestionPicked(false);
+    setUsedQuestions([]);
+    setGameOver(false);
+    setWinner(null);
+    setBoardCameraPosition(initialCameraPosition);
+  }
+
   // The provider component will wrap all other components inside of it that need access to our global state
   return (
-    // Dark theme and toggle theme are getting provided to the child components
     <GameSessionContext.Provider value={{
       socket,
       questionsLoading,
@@ -118,7 +135,13 @@ export default function GameSessionProvider({ children }) {
       advanceTurn,
       boardCameraPosition,
       setBoardCameraPosition,
-      boardStepSize
+      boardStepSize,
+      boardMax,
+      gameOver,
+      setGameOver,
+      winner,
+      setWinner,
+      resetGameSession
     }}>
       {children}
     </GameSessionContext.Provider>

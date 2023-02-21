@@ -48,7 +48,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    updateUser: async (parent, args, context) => {
+    updateMyWins: async (parent, args, context) => {
       if (context.user._id) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
