@@ -31,3 +31,13 @@ export const REMOVE_USER = gql`
     }
   }
 `;
+
+export const UPDATE_USERNAME = gql`
+mutation UPDATE_USERNAME($username: String!) {
+  updateUsername(username: $username) {
+    user {
+      username
+    }
+  }
+}
+`
