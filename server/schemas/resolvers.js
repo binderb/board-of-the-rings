@@ -58,6 +58,17 @@ const resolvers = {
         return updatedUser;
       }
     },
+    updateUsername: async (parent, { username }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { username: username },
+          { new: true }
+        );
+        const token = signToken(updatedUser);
+        return { updatedUser, token };
+      }
+    },
     removeUser: async (parent, args, context) => {
       if (context) {
         return User.findOneAndDelete({ _id: context.user._id });
