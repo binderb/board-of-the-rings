@@ -35,9 +35,10 @@ export default function Rules() {
         <br></br>
         <h4>On Your Turn</h4>
         <p>
-          On your turn, you will be asked a trivia question. Answer correctly to
-          advance to the next game board space. Play passes between players
-          after each question.
+          On your turn, the game will tell you that it's your turn and you will
+          be asked a trivia question. Answer correctly to advance to the next
+          game board space. Press the pass turn button after your turn to pass
+          play to the next player.
         </p>
         <br></br>
         <h4>Winning the Game</h4>
