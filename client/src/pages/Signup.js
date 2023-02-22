@@ -47,12 +47,13 @@ const Signup = () => {
 
   return (
     <div className='p-4'>
-          <div className='flex justify-between items-center'>
-        <h1>Signup</h1>
+          <div>
         <Navbar />
       </div>
       {data ? window.location.replace('/profile')
         : (
+      <div className='container'>
+        <h1>Signup</h1>
         <form onSubmit={handleFormSubmit} className="signup-form">
           <div className='form-group'>
             <label htmlFor='username'>Username</label>
@@ -108,6 +109,7 @@ const Signup = () => {
           <p>Login instead if you have already signed up.</p>
           <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToLogin}>Login</button>
         </form>
+        </div>
       )}
     {error ? (
       <div className='alert alert-danger mt-4' role='alert'>

@@ -45,13 +45,14 @@ const Login = (props) => {
 
   return (
     <div className='p-4'>
-          <div className='flex justify-between items-center'>
-        <h1>Login</h1>
+          <div>
         <Navbar />
       </div>
       { data ? 
         window.location.replace('/profile')
       : (
+      <div className='container'>
+        <h1>Login</h1>
         <form onSubmit={handleFormSubmit} className="login-form">
           <div className='form-group'>
             <label htmlFor='email'>Email</label>
@@ -83,6 +84,7 @@ const Login = (props) => {
           <p>Sign up instead if you have not created an account.</p>
           <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToSignup}>Signup</button>
         </form>
+        </div>
       )}
       {error ? (
         <div className='alert alert-danger mt-4' role='alert'>
