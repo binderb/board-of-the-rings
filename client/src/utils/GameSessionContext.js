@@ -14,7 +14,7 @@ export default function GameSessionProvider({ children }) {
   
   // Global variables for the game session
   const initialCameraPosition = [0,2,10];
-  const boardStepSize = 3;
+  const boardStepSize = 5;
   const boardMax = 3;
   const { loading: questionsLoading, data: questionsData } = useQuery(QUERY_QUESTIONS);
   const [gameScreen, setGameScreen] = useState('lobby');
@@ -52,7 +52,7 @@ export default function GameSessionProvider({ children }) {
       const turnPlayer = players[turn];
       setBoardCameraPosition([(turnPlayer.boardPosition*boardStepSize), boardCameraPosition[1], boardCameraPosition[2]]);
     }
-  }, [turn, players, boardCameraPosition, setBoardCameraPosition, boardStepSize])
+  }, [players, turn, boardCameraPosition]);
 
   // Methods
   const joinRoom = (id) => {
@@ -77,8 +77,14 @@ export default function GameSessionProvider({ children }) {
   }
 
   const advanceTurn = () => {
-    if (turn >= players.length-1) setTurn(0);
-    else setTurn(turn+1);
+    const newTurn = (turn >= players.length-1) ? 0 : turn+1;
+    const newPlayers = players.map( (e,i) => {
+      if (i === newTurn) return {...players[i], animationState: "studyMap"};
+      else return {...players[i]}
+    });
+    console.log(newPlayers);
+    setPlayers(newPlayers);
+    setTurn(newTurn);
     setQuestionPicked(false);
   }
 

@@ -16,8 +16,8 @@ export default function Player ({initialPosition, playerId}) {
     spriteSheetUrl: '/assets/textures/playerSheet-Hobbit.png',
     xCount: 5,
     yCount: 1,
-    spriteFrames: 2,
-    spriteX: 0,
+    spriteFrames: 1,
+    spriteX: 4,
     spriteY: 1,
     intervalFunc: () => 0.5
   });

@@ -1,5 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import BackgroundComponent from './BackgroundComponent';
 import BoardSpace from './BoardSpace';
 import Player from './Player';
 import { useGameSession } from '../../../utils/GameSessionContext';
@@ -22,6 +23,8 @@ export default function Scene () {
     <>
       <ambientLight intensity={0.2} />
       <directionalLight position={[0,2,5]} />
+      <BackgroundComponent sprite="/assets/textures/shire.png" position={[0,1,-2]} scale={[6,3,2]} />
+      <BackgroundComponent sprite="/assets/textures/orodruin.png" position={[15,0.75,-2]} scale={[4,3,2]} />
       {players.map( (player, index) => {
         const offset = 0.2;
         const boardPositionX = (0 + index*offset) - ((players.length-1)*offset / 2);
@@ -32,9 +35,9 @@ export default function Scene () {
         );
       })}
       <BoardSpace position={[0,0,0]} />
-      <BoardSpace position={[3,0,0]} />
-      <BoardSpace position={[6,0,0]} />
-      <BoardSpace position={[9,0,0]} />
+      <BoardSpace position={[5,0,0]} />
+      <BoardSpace position={[10,0,0]} />
+      <BoardSpace position={[15,0,0]} />
       {/* <BoardSpace position={[3,0,0]} />
       <BoardSpace position={[4,0,0]} />
       <BoardSpace position={[5,0,0]} />
