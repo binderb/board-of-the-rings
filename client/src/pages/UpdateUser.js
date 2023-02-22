@@ -62,7 +62,7 @@ const UpdateUsername = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center bg-green-900 p-3"><h1>Update Profile</h1>
+      <div className="flex justify-between items-center p-3"><h1>Update Profile</h1>
       <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToProfile}>Back to Profile</button>
       </div>
       <form className="signup-form" onSubmit={handleFormSubmit}>

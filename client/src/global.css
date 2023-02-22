@@ -138,4 +138,8 @@
   li {
     list-style: none;
   }
+
+  nav ul li a {
+    text-decoration: none;
+  }
 }
