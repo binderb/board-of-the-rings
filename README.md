@@ -5,7 +5,7 @@
  
 ## Description 
 
-Board of the Rings is an online multiplayer trivia game honoring the works of J.R.R. Tolkien. Players compete to reach the final game space (Mount Doom) where, by answering a final trivia question correctly, they destroy The One Ring and win the game!
+Board of the Rings is an online multiplayer trivia game honoring the works of J.R.R. Tolkien. Players compete to reach the final game space (Mount Doom) by answering a final trivia question correctly. Once you reach Mount Doom, the Ring is destroyed and you win!
 
 
 

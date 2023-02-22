@@ -15,23 +15,10 @@ export default function Rules() {
         <br></br>
         <h4>The Game Board</h4>
         <p>
-          There are twelve spaces on the board, each representing a section of
-          the journey of Frodo and Samwise to Mount Doom. These spaces include:
+          There are several spaces on the game board, representing the areas of
+          Middle Earth Frodo and Sam journeyed through on their mission to
+          destroy the ring. The final game board space represents Mount Doom.
         </p>
-        <ul>
-          <li>The Shire</li>
-          <li>Bree</li>
-          <li>Weathertop</li>
-          <li>Rivendell</li>
-          <li>Mines of Moria</li>
-          <li>Lothlorien</li>
-          <li>Emyn Muil</li>
-          <li>Dead Marshes</li>
-          <li>Ithilien</li>
-          <li>Shelob's Lair</li>
-          <li>Cirith Ungol</li>
-          <li>Mount Doom</li>
-        </ul>
         <br></br>
         <h4>On Your Turn</h4>
         <p>
@@ -43,12 +30,9 @@ export default function Rules() {
         <br></br>
         <h4>Winning the Game</h4>
         <p>
-          When a player advances to the final board space (Mount Doom), play
-          does not pass to the next player. Instead, the player in the final
-          space has a chance to win the game with one final question. If the
-          question is answered correctly, the game is over! If not, play passes
-          to the next player until someone ends the game by correctly answering
-          a question in the Mount Doom game board space.
+          The game ends when a player reaches Mount Doom, the final game board
+          space. Once this is accomplished, the ring is destroyed and the game
+          ends!
         </p>
         <br></br>
         <p className="medieval">For Frodo!</p>
