@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-
+import Navbar from '../components/Navbar';
 import Auth from '../utils/auth';
 
 
@@ -41,10 +41,16 @@ const Signup = () => {
     }
   };
 
+  function backToLogin() {
+    window.location.href = '/Login';
+  }
 
   return (
     <div className='p-4'>
-    <h1>Signup</h1>
+          <div className='flex justify-between items-center'>
+        <h1>Signup</h1>
+        <Navbar />
+      </div>
       {data ? window.location.replace('/profile')
         : (
         <form onSubmit={handleFormSubmit} className="signup-form">
@@ -98,7 +104,9 @@ const Signup = () => {
           </div>
           <button type='submit' className='rounded bg-green-800 p-1 px-2 hover:bg-green-700'>
             Signup
-          </button>
+          </button><br></br>
+          <p>Login instead if you have already signed up.</p>
+          <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToLogin}>Login</button>
         </form>
       )}
     {error ? (

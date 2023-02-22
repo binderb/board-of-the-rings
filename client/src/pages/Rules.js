@@ -1,8 +1,13 @@
+function backToHome() {
+  window.location.href = '/';
+}
+
 export default function Rules() {
   return (
     <>
       <div className="ruleset">
-        <h1>Board of the Rings</h1>
+       <div className='flex justify-between items-center'> <h1>Board of the Rings</h1>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToHome}>Home</button></div>
         <p className="medieval">An Unexpected Party Game</p>
         <h2>Rules of Play</h2>
         <h4>Game Objective</h4>
