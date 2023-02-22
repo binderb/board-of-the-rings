@@ -63,7 +63,7 @@ const Profile = () => {
       </div>
       <div className="p-4">
         <p>Profile management:</p>
-        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={() => window.location.replace('/update-user')}>Change Username</button><br></br><br></br>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={() => window.location.replace('/update-user')}>Update Profile</button><br></br><br></br>
         <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={handleDelete}>Delete Profile</button>
       </div>
       
