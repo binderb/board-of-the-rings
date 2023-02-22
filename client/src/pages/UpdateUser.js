@@ -56,9 +56,15 @@ const UpdateUsername = () => {
     setFormState({ displayName: '' });
   };
 
+  function backToProfile() {
+    window.location.href = '/profile';
+  }
+
   return (
     <div>
-      <h1>Update Username</h1>
+      <div className="flex justify-between items-center bg-green-900 p-3"><h1>Update Profile</h1>
+      <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToProfile}>Back to Profile</button>
+      </div>
       <form className="signup-form" onSubmit={handleFormSubmit}>
         <div className="form-group">
           <label htmlFor="username">New Username:</label>
@@ -77,8 +83,9 @@ const UpdateUsername = () => {
 
         <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" type="submit">Submit</button>
       </form>
+      <br></br>
 
-      <h1>Update Display Name</h1>
+      {/* <h1>Update Display Name</h1> */}
       <form className="signup-form" onSubmit={handleDisplayNameUpdate}>
         <div className="form-group">
           <label htmlFor="displayName">New Display Name:</label>
