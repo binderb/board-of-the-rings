@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useGameSession } from "../../utils/GameSessionContext";
 import { useMutation } from '@apollo/client';
 import QuizPrompt from './session/QuizPrompt';
+import OpponentPrompt from './session/OpponentPrompt';
 import GameOver from './session/GameOver';
 import Board from './session/Board';
 import Auth from '../../utils/auth';
@@ -117,6 +118,7 @@ export default function GameSession () {
           // It's another player's turn.
           <>
             <p className="mt-3">It's {players[turn].name}'s turn.</p>
+            <OpponentPrompt />
           </>
         }
         </>
