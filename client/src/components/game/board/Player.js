@@ -22,6 +22,18 @@ const animations = {
     endFrame : 4,
     frameTime : 99999,
     loop: false
+  },
+  "incorrect" : {
+    startFrame : 5,
+    endFrame : 5,
+    frameTime : 99999,
+    loop: false
+  },
+  "victory" : {
+    startFrame : 6,
+    endFrame : 6,
+    frameTime : 99999,
+    loop: false
   }
 }
 
@@ -33,9 +45,7 @@ export default function Player ({initialPosition, playerId, texture}) {
 
   const currentFrame = useRef(0);
   const t = useRef(0);
-  const frameCount = 5;
-  //texture.repeat.set(1/frameCount,1);
-  // texture.offset.x = currentFrame / frameCount;
+  const frameCount = 7;
   const [me, setMe] = useState(null);
   const frameTime = useRef(500);
   const startFrame = useRef(0);

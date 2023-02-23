@@ -25,13 +25,15 @@ export default function GameSession () {
     gameOver,
     setGameOver,
     setWinner,
+    setRingAnimation,
+    setRingPosition,
     resetGameSession
   } = useGameSession();
 
   const [incrementWins] = useMutation(UPDATE_MY_WINS);
   
   useEffect(() => {
-    socket.on('receive_picked_correct', async (returnedPlayers) => {
+    socket.on('receive_picked_correct', async ({players: returnedPlayers}) => {
       const correctId = returnedPlayers.find(e => e.animationState === 'correct').id;
       let newPlayers = players.map( (e,i) => {
         if (e.id === correctId) return {...players[i], animationState: "correct"};
@@ -45,7 +47,6 @@ export default function GameSession () {
       });
       setPlayers(newPlayers);
       await new Promise(resolve => setTimeout(resolve, 1000));
-      // setPlayers(returnedPlayers);
       const newCameraPosition = [
         boardCameraPosition[0]+boardStepSize,
         boardCameraPosition[1],
@@ -54,18 +55,48 @@ export default function GameSession () {
       setBoardCameraPosition(newCameraPosition);
     });
 
-    socket.on('receive_win_condition', async (players) => {
-      setPlayers(players);
+    socket.on('receive_picked_incorrect', ({players: returnedPlayers}) => {
+      console.log(returnedPlayers);
+      setPlayers(returnedPlayers);
+    });
+
+    socket.on('receive_win_condition', async ({players: returnedPlayers}) => {
+      const correctId = returnedPlayers.find(e => e.animationState === 'correct').id;
+      let newPlayers = players.map( (e,i) => {
+        if (e.id === correctId) return {...players[i], animationState: "correct"};
+        else return {...players[i]}
+      });
+      setPlayers(newPlayers);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      newPlayers = returnedPlayers.map( (e,i) => {
+        if (e.id === correctId) return {...returnedPlayers[i], animationState: "walking"};
+        else return {...returnedPlayers[i]}
+      });
+      setPlayers(newPlayers);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      newPlayers = newPlayers.map( (e,i) => {
+        if (e.id === correctId) return {...returnedPlayers[i], animationState: "victory"};
+        else return {...returnedPlayers[i]}
+      });
+      setPlayers(newPlayers);
+      setRingAnimation('static');
+      await new Promise(resolve => setTimeout(resolve, 200));
+      setRingAnimation('destroy');
+      await new Promise(resolve => setTimeout(resolve, 1900));
+      newPlayers = newPlayers.map( (e,i) => {
+        if (e.id === correctId) return {...returnedPlayers[i], animationState: "correct"};
+        else return {...returnedPlayers[i]}
+      });
+      setPlayers(newPlayers);
       const newCameraPosition = [
         boardCameraPosition[0]+boardStepSize,
         boardCameraPosition[1],
         boardCameraPosition[2]
       ]
       setBoardCameraPosition(newCameraPosition);
-      const winner = players.find(e => e.boardPosition === boardMax);
+      const winner = returnedPlayers.find(e => e.boardPosition === boardMax);
       setWinner(winner);
       setGameOver(true);
-      console.log(winner.id === socket.id ? `I won!` : `${winner.name} won!`);
       if (winner.id === socket.id) {
         await incrementWins();
       }
@@ -82,6 +113,7 @@ export default function GameSession () {
 
     return () => {
       socket.off('receive_picked_correct');
+      socket.off('receive_picked_incorrect');
       socket.off('receive_win_condition');
       socket.off('receive_advance_turn');
     };

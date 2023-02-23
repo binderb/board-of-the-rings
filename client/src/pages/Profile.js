@@ -12,9 +12,16 @@ const Profile = () => {
   const { loading, data } = useQuery(QUERY_ME);
   const [removeUser] = useMutation(REMOVE_USER);
 
+  const handleGoHome = () => {
+    window.location.replace('/');
+  };
+
   if (!Auth.loggedIn()) {
     return (
+      <>
       <p>You must be logged in to view this page!</p>
+      <button onClick={handleGoHome} className="btn btn-primary m-1">Back to Home</button>
+      </>
     );
   }
 

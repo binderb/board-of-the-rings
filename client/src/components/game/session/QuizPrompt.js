@@ -19,11 +19,11 @@ export default function QuizPrompt () {
     if (!questionPicked) {
       setQuestionPicked(true);
       if (isCorrect) {
-        socket.emit('picked_correct', {players, room: roomId});
+        socket.emit('picked_correct', {players, room: roomId, choice: e.target.getAttribute("data-key")});
         e.target.classList.remove('btn-primary');
         e.target.classList.add('btn-correct');
       } else {
-        socket.emit('picked_incorrect');
+        socket.emit('picked_incorrect', {players, room: roomId, choice: e.target.getAttribute("data-key")});
         e.target.classList.remove('btn-primary');
         e.target.classList.add('btn-incorrect');
       }
@@ -45,7 +45,7 @@ export default function QuizPrompt () {
       </p>
       <div id="answers">
         {questions[currentQuestion].answers.map( (answer) =>
-          <button key={answer.option} disabled={questionPicked} className="btn btn-primary m-2 block" onClick={(e) => checkAnswer(e, answer.isCorrect)}>{answer.option}</button>
+          <button key={answer.option} data-key={answer.option} disabled={questionPicked} className="btn btn-primary m-2 block" onClick={(e) => checkAnswer(e, answer.isCorrect)}>{answer.option}</button>
         )}
       </div>
     </section>

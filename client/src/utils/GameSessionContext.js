@@ -28,6 +28,8 @@ export default function GameSessionProvider({ children }) {
   const [boardCameraPosition, setBoardCameraPosition] = useState(initialCameraPosition);
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState(null);
+  const [ringPosition, setRingPosition] = useState([0,0,0]);
+  const [ringAnimation, setRingAnimation] = useState('invisible');
 
   useEffect(() => {
     socket.on('receive_reset_questions', () => {
@@ -146,7 +148,11 @@ export default function GameSessionProvider({ children }) {
       setGameOver,
       winner,
       setWinner,
-      resetGameSession
+      resetGameSession,
+      ringAnimation,
+      setRingAnimation,
+      ringPosition,
+      setRingPosition
     }}>
       {children}
     </GameSessionContext.Provider>

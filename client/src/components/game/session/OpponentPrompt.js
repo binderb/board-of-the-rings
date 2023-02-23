@@ -1,12 +1,30 @@
+import { useEffect, useState } from 'react';
 import { useGameSession } from '../../../utils/GameSessionContext';
 
 export default function OpponentPrompt () {
 
   const { 
+    socket,
     questionsLoading,
     questionsData,
     currentQuestion,
   } = useGameSession();
+  const [picked, setPicked] = useState(null);
+
+  useEffect( () => {
+    socket.on('receive_picked_correct', ({choice}) => {
+      setPicked(choice);
+    });
+
+    socket.on('receive_picked_incorrect', ({choice}) => {
+      setPicked(choice);
+    });
+
+    return () => {
+      //socket.off('receive_picked_correct');
+      //socket.off('receive_picked_incorrect');
+    };
+  });
 
   const questions = questionsData?.questions || [];
 
@@ -24,9 +42,15 @@ export default function OpponentPrompt () {
         {questions[currentQuestion].quizQ}
       </p>
       <div id="answers">
-        {questions[currentQuestion].answers.map( (answer) =>
-          <button key={answer.option} disabled={true} className="btn btn-primary m-2 block">{answer.option}</button>
-        )}
+        {questions[currentQuestion].answers.map( (answer) => {
+          let buttonClass = 'btn-primary';
+          console.log("opponent picked: ",picked);
+          if (answer.option === picked && answer.isCorrect) buttonClass = 'btn-correct';
+          else if (answer.option === picked && !answer.isCorrect) buttonClass = 'btn-incorrect'; 
+          return (
+            <button key={answer.option} disabled={true} className={`btn ${buttonClass} m-2 block`}>{answer.option}</button>
+          );
+        })}
       </div>
     </section>
   );
