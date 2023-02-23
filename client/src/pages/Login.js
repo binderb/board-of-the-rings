@@ -82,7 +82,7 @@ const Login = (props) => {
             Login
           </button><br></br>
           <p>Sign up instead if you have not created an account.</p>
-          <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToSignup}>Signup</button>
+          <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToSignup}>Sign up</button>
         </form>
         </div>
       )}

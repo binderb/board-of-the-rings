@@ -50,7 +50,7 @@ const Profile = () => {
     <div>
       <div className="flex justify-between items-center bg-green-900 p-3">
         <h1 className='p-0 m-0 leading-none'>Welcome, {user.username}</h1>
-        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={handleLogout}>Logout</button>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={handleLogout}>Log Out</button>
       </div>
       <div className="p-4">
         <p>Adventure awaits!</p>

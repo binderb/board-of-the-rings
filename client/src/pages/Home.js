@@ -23,7 +23,7 @@ export default function Home() {
       Join the quest to destroy The One Ring and become the ultimate Tolkien trivia champion with Board of the Rings, the online multiplayer game!
       </p>
       <div className="links">
-        <Link to='/signup' className="link">Signup</Link><br></br>
+        <Link to='/signup' className="link">Sign up</Link><br></br>
         <Link to='/login' className="link">Login</Link><br></br>
         <Link to='/rules' className="link">Game Rules</Link>
       </div>
