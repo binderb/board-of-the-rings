@@ -6,8 +6,10 @@ export default function Rules() {
   return (
     <>
       <div className="ruleset">
-       <div className='flex justify-between items-center'> <h1>Board of the Rings</h1>
-        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToHome}>Home</button></div>
+        <div className="flex flex-col items-center">
+          <button className="btn btn-primary mb-2" onClick={backToHome}>Home</button>
+          <h1 className="p-0">Board of the Rings</h1>
+        </div>
         <p className="medieval">An Unexpected Party Game</p>
         <h2>Rules of Play</h2>
         <h4>Game Objective</h4>

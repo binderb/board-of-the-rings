@@ -45,7 +45,7 @@ export default function QuizPrompt () {
       </p>
       <div id="answers">
         {questions[currentQuestion].answers.map( (answer) =>
-          <button key={answer.option} data-key={answer.option} disabled={questionPicked} className="btn btn-primary m-2 block" onClick={(e) => checkAnswer(e, answer.isCorrect)}>{answer.option}</button>
+          <button key={answer.option} data-key={answer.option} disabled={questionPicked} className="btn btn-primary my-2 block w-full text-left" onClick={(e) => checkAnswer(e, answer.isCorrect)}>{answer.option}</button>
         )}
       </div>
     </section>

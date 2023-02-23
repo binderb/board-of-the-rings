@@ -59,6 +59,7 @@ export default function WaitingRoom () {
 
   return (
     <>
+      <h1 className="p-0">Waiting Room</h1>
       {isHost
         ?
         <p>You are the host. Click "Start" when all players have joined!</p>

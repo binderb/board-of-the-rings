@@ -48,7 +48,7 @@ export default function OpponentPrompt () {
           if (answer.option === picked && answer.isCorrect) buttonClass = 'btn-correct';
           else if (answer.option === picked && !answer.isCorrect) buttonClass = 'btn-incorrect'; 
           return (
-            <button key={answer.option} disabled={true} className={`btn ${buttonClass} m-2 block`}>{answer.option}</button>
+            <button key={answer.option} disabled={true} className={`btn ${buttonClass} my-2 w-full block`}>{answer.option}</button>
           );
         })}
       </div>

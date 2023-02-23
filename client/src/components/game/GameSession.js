@@ -143,7 +143,7 @@ export default function GameSession () {
           <>
             <p className="mt-3">It's my turn!</p>
             <QuizPrompt />
-            <button className="btn btn-primary m-1 mb-2" onClick={handlePassTurn}>Pass Turn</button>
+            <button className="btn btn-primary m-1 mb-2" onClick={handlePassTurn}>End Turn</button>
           </>
           :
           // It's another player's turn.

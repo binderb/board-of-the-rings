@@ -52,7 +52,7 @@ const Signup = () => {
       </div>
       {data ? window.location.replace('/profile')
         : (
-      <div className='container'>
+      <div className='flex flex-col items-center pt-4'>
         <h1>Sign Up</h1>
         <form onSubmit={handleFormSubmit} className="signup-form">
           <div className='form-group'>
