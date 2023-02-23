@@ -5,7 +5,7 @@ import { DISPLAY_NAME } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const UpdateUsername = () => {
-  const [formState, setFormState] = useState({ username: '' });
+  const [formState, setFormState] = useState({ username: '', displayName: '' });
   const [updateUsername, { error }] = useMutation(UPDATE_USERNAME);
   const [updateDisplayName] = useMutation(DISPLAY_NAME);
 
@@ -25,7 +25,7 @@ const UpdateUsername = () => {
       console.error(e);
     }
 
-    setFormState({ username: '' });
+    setFormState({ username: '', displayName: '' });
   };
 
   const handleChange = (event) => {
@@ -53,7 +53,7 @@ const UpdateUsername = () => {
       console.error(e);
     }
 
-    setFormState({ displayName: '' });
+    setFormState({ username: '', displayName: ''  });
   };
 
   function backToProfile() {
