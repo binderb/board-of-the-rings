@@ -37,11 +37,11 @@ export default function Player ({initialPosition, playerId, texture}) {
   //texture.repeat.set(1/frameCount,1);
   // texture.offset.x = currentFrame / frameCount;
   const [me, setMe] = useState(null);
-  const [frameTime, setFrameTime] = useState(500);
-  const [startFrame, setStartFrame] = useState(0);
-  const [endFrame, setEndFrame] = useState(0);
-  const [loop, setLoop] = useState(true);
-  const [reset, setReset] = useState(false);
+  const frameTime = useRef(500);
+  const startFrame = useRef(0);
+  const endFrame = useRef(0);
+  const loop = useRef(true);
+  const reset = useRef(false);
   const playerRef = useRef();
   const vec = new THREE.Vector3();
 
@@ -55,13 +55,12 @@ export default function Player ({initialPosition, playerId, texture}) {
   useEffect (() => {
     if (me?.animationState) {
       console.log(me.animationState);
-      setFrameTime(animations[me.animationState].frameTime);
-      setStartFrame(animations[me.animationState].startFrame);
-      setEndFrame(animations[me.animationState].endFrame);
-      setLoop(animations[me.animationState].loop);
+      frameTime.current = animations[me.animationState].frameTime;
+      startFrame.current = animations[me.animationState].startFrame;
+      endFrame.current = animations[me.animationState].endFrame;
+      loop.current = animations[me.animationState].loop;
       currentFrame.current = animations[me.animationState].startFrame;
-      
-      setReset(true);
+      reset.current = true;
     }
   }, [me]);
 
@@ -69,28 +68,29 @@ export default function Player ({initialPosition, playerId, texture}) {
     if (me) {
       // Update player board position if needed.
       const playerIndex = players.indexOf(me);
-      const offset = 0.5;
-      const boardPositionX = ((me.boardPosition*boardStepSize) + playerIndex*offset) - ((players.length-1)*offset / 2);
+      const offsetX = 0.8;
+      const offsetY = 0.2;
+      const boardPositionX = ((me.boardPosition*boardStepSize) + playerIndex*offsetX) - ((players.length-1)*offsetX / 2);
       const boardPositionY = 1;
-      const boardPositionZ = (0 - playerIndex*offset) + ((players.length-1)*offset / 2);
+      const boardPositionZ = (0 - playerIndex*offsetY) + ((players.length-1)*offsetY / 2);
       playerRef.current.position.lerp(vec.set(boardPositionX,boardPositionY,boardPositionZ),0.08);
       //layerRef.current.lookAt(state.camera)
-      if (reset) {
+      if (reset.current) {
         t.current = 0;
         playerRef.current.geometry.attributes.uv.setXY(0, (currentFrame.current/frameCount), 1);
         playerRef.current.geometry.attributes.uv.setXY(1, ((currentFrame.current+1)/frameCount), 1);
         playerRef.current.geometry.attributes.uv.setXY(2, (currentFrame.current/frameCount), 0);
         playerRef.current.geometry.attributes.uv.setXY(3, ((currentFrame.current+1)/frameCount), 0);
         playerRef.current.geometry.attributes.uv.needsUpdate = true;
-        setReset(false);
+        reset.current = false;
       }
 
       t.current += delta * 1000;
-      if (t.current >= frameTime) {
+      if (t.current >= frameTime.current) {
         //console.log(`${t.current}, ${currentFrame}`);
-        if (currentFrame.current >= endFrame) {
-          if (loop) currentFrame.current = startFrame;
-          else currentFrame.current = endFrame;
+        if (currentFrame.current >= endFrame.current) {
+          if (loop.current) currentFrame.current = startFrame.current;
+          else currentFrame.current = endFrame.current;
         } else {
           currentFrame.current += 1;
         }

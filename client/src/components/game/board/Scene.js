@@ -28,10 +28,11 @@ export default function Scene () {
       <BackgroundComponent sprite="/assets/textures/shire.png" position={[0,1,-2]} scale={[6,3,2]} />
       <BackgroundComponent sprite="/assets/textures/orodruin.png" position={[15,0.75,-2]} scale={[4,3,2]} />
       {players.map( (player, index) => {
-        const offset = 0.2;
-        const boardPositionX = (0 + index*offset) - ((players.length-1)*offset / 2);
-        const boardPositionY = 1.05;
-        const boardPositionZ = (0 - index*offset) + ((players.length-1)*offset / 2);
+        const offsetX = 0.8;
+        const offsetY = 0.2;
+        const boardPositionX = (0 + index*offsetX) - ((players.length-1)*offsetX / 2);
+        const boardPositionY = 1;
+        const boardPositionZ = (0 - index*offsetY) + ((players.length-1)*offsetY / 2);
         return (
           <Player key={player.id} texture={hobbitTexture} playerId={player.id} initialPosition={[boardPositionX,boardPositionY,boardPositionZ]} />
         );

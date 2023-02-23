@@ -31,18 +31,20 @@ export default function GameSession () {
   
   useEffect(() => {
     socket.on('receive_picked_correct', async (returnedPlayers) => {
-      // let newPlayers = players.map( (e,i) => {
-      //   if (e.id === socket.id) return {...players[i], animationState: "correct"};
-      //   else return {...players[i]}
-      // });
-      // setPlayers(newPlayers);
-      // await new Promise(resolve => setTimeout(resolve, 500));
-      // newPlayers = returnedPlayers.map( (e,i) => {
-      //   if (e.id === socket.id) return {...returnedPlayers[i], animationState: "walking"};
-      //   else return {...returnedPlayers[i]}
-      // });
-      // setPlayers(newPlayers);
-      setPlayers(returnedPlayers);
+      const correctId = returnedPlayers.find(e => e.animationState === 'correct').id;
+      let newPlayers = players.map( (e,i) => {
+        if (e.id === correctId) return {...players[i], animationState: "correct"};
+        else return {...players[i]}
+      });
+      setPlayers(newPlayers);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      newPlayers = returnedPlayers.map( (e,i) => {
+        if (e.id === correctId) return {...returnedPlayers[i], animationState: "walking"};
+        else return {...returnedPlayers[i]}
+      });
+      setPlayers(newPlayers);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      // setPlayers(returnedPlayers);
       const newCameraPosition = [
         boardCameraPosition[0]+boardStepSize,
         boardCameraPosition[1],

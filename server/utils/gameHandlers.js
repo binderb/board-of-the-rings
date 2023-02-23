@@ -55,6 +55,7 @@ const registerGameHandlers = (io, socket) => {
   socket.on("picked_correct", ({players, room}) => {
     const correct_player = players.find(e => e.id === socket.id);
     correct_player.boardPosition += 1;
+    correct_player.animationState = 'correct';
     if (correct_player.boardPosition == boardMax) {
 
       io.sockets.in(room).emit('receive_win_condition', players);
