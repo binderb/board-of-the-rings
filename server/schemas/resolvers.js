@@ -4,6 +4,7 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    //me query tells us who the logged in user is
     me: async (parent, args, context) => {
       console.log(context.user);
       if (context.user) {
@@ -15,24 +16,29 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    //queries all users
     users: async () => {
       return User.find().select("-__v -password");
     },
+    //queries a single user
     user: async (parent, { username }) => {
       return User.findOne({ username }).select("-__v -password");
     },
+    //queries all questions
     questions: async () => {
       return Questions.find();
     }
   },
 
   Mutation: {
+    //add a new user
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
 
       return { token, user };
     },
+    //log in an existing user
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -48,6 +54,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    //increments player's wins total if they meet the win condition for the game
     updateMyWins: async (parent, args, context) => {
       if (context.user._id) {
         const updatedUser = await User.findOneAndUpdate(
@@ -58,6 +65,7 @@ const resolvers = {
         return updatedUser;
       }
     },
+    //replaces username with a new one from user input
     updateUsername: async (parent, { username }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
@@ -69,6 +77,7 @@ const resolvers = {
         return { updatedUser, token };
       }
     },
+    //replaces display name with a new one from user input
     updateDisplayName: async (parent, { displayName }, context) => {
       if (context.user) {
         const updatedDisplayName = await User.findOneAndUpdate(
@@ -80,6 +89,7 @@ const resolvers = {
         return { updatedDisplayName, token };
       }
     },
+    //removes user from database
     removeUser: async (parent, args, context) => {
       if (context) {
         return User.findOneAndDelete({ _id: context.user._id });

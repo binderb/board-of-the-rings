@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-
+import Navbar from '../components/Navbar';
 import Auth from '../utils/auth';
 
 const Login = (props) => {
@@ -39,12 +39,20 @@ const Login = (props) => {
     });
   };
 
+  function backToSignup() {
+    window.location.href = '/Signup';
+  }
+
   return (
     <div className='p-4'>
-      <h1>Login</h1>
+          <div>
+        <Navbar />
+      </div>
       { data ? 
         window.location.replace('/profile')
       : (
+      <div className='container'>
+        <h1>Login</h1>
         <form onSubmit={handleFormSubmit} className="login-form">
           <div className='form-group'>
             <label htmlFor='email'>Email</label>
@@ -72,8 +80,11 @@ const Login = (props) => {
           </div>
           <button type='submit' className='rounded bg-green-800 p-1 px-2 hover:bg-green-700'>
             Login
-          </button>
+          </button><br></br>
+          <p>Sign up instead if you have not created an account.</p>
+          <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToSignup}>Sign up</button>
         </form>
+        </div>
       )}
       {error ? (
         <div className='alert alert-danger mt-4' role='alert'>

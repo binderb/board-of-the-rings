@@ -70,10 +70,17 @@
     @apply rounded p-1 mr-2 bg-primary text-highlight placeholder-green-600
   }
 
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
   .signup-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
   .signup-form .form-group {
     margin-bottom: 1rem;
@@ -95,7 +102,7 @@
   .login-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
   .login-form .form-group {
     margin-bottom: 1rem;
@@ -138,4 +145,96 @@
   li {
     list-style: none;
   }
+
+  nav ul li a {
+    text-decoration: none;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: -100px;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 75px;
+    text-align: center;
+    font-family: 'MedievalSharp';
+    color: var(--highlight);
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    font-size: 1.2rem;
+    font-family: 'MedievalSharp';
+    color: var(--highlight);
+    margin-bottom: 30px;
+  }
+  
+  .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .link {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    border: 2px solid var(--primary);
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--highlight);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .link:hover {
+    background-color: var(--primary-hover);
+    color: var(--highlight);
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  ul {
+    display: flex;
+    align-items: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
+  }
+
+  .navlink {
+    font-size: 15px;
+    padding: 10px 20px;
+    border: 1px solid var(--primary);
+    border-radius: 3px;
+    text-decoration: none;
+    color: var(--highlight);
+    transition: all 0.2s ease-in-out;
+    margin-right: 15px;
+  }
+
+  .navlink:hover {
+    background-color: var(--primary-hover);
+    color: var(--highlight);
+  }
+
+  .navtitle {
+    font-size: 50px;
+    text-align: center;
+    font-family: 'MedievalSharp';
+    color: var(--highlight);
+    margin-right: auto;
+  }
+
+
 }
