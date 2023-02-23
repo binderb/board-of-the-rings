@@ -27,9 +27,15 @@ export default function Scene () {
     <>
       <ambientLight intensity={0.2} />
       <directionalLight position={[0,2,5]} />
-      <BackgroundComponent sprite="/assets/textures/shire.png" position={[0,1,-2]} scale={[6,3,2]} />
-      <BackgroundComponent sprite="/assets/textures/orodruin.png" position={[15,0.75,-2]} scale={[4,3,2]} />
-      <Ring texture={ringTexture} initialPosition={[15.8,1.5,1]} animation={ringAnimation} />
+      <BackgroundComponent sprite="/assets/textures/shire.webp" position={[0,0.75,-2]} scale={[6,3,2]} />
+      <BackgroundComponent sprite="/assets/textures/bree.webp" position={[5.5,0.5,-2]} scale={[7,3,2]} />
+      <BackgroundComponent sprite="/assets/textures/weathertop.webp" position={[10.5,0.75,-2]} scale={[7,3,2]} />
+      <BackgroundComponent sprite="/assets/textures/moria.webp" position={[15,1,-2]} scale={[5,3,2]} />
+      <BackgroundComponent sprite="/assets/textures/anduin.webp" position={[20,0.75,-2]} scale={[5.5,3.5,2]} />
+      <BackgroundComponent sprite="/assets/textures/emynmuil.webp" position={[25,0.5,-2]} scale={[5.5,3.5,2]} />
+      <BackgroundComponent sprite="/assets/textures/orodruin.webp" position={[30,0.75,-2]} scale={[4,3,2]} />
+
+      <Ring texture={ringTexture} initialPosition={[30.8,1.5,1]} animation={ringAnimation} />
       {players.map( (player, index) => {
         const offsetX = 0.8;
         const offsetY = 0.2;
@@ -44,14 +50,9 @@ export default function Scene () {
       <BoardSpace position={[5,0,0]} />
       <BoardSpace position={[10,0,0]} />
       <BoardSpace position={[15,0,0]} />
-      {/* <BoardSpace position={[3,0,0]} />
-      <BoardSpace position={[4,0,0]} />
-      <BoardSpace position={[5,0,0]} />
-      <BoardSpace position={[6,0,0]} />
-      <BoardSpace position={[7,0,0]} />
-      <BoardSpace position={[8,0,0]} />
-      <BoardSpace position={[9,0,0]} />
-      <BoardSpace position={[10,0,0]} /> */}
+      <BoardSpace position={[20,0,0]} />
+      <BoardSpace position={[25,0,0]} />
+      <BoardSpace position={[30,0,0]} />
     </>
   );
 }

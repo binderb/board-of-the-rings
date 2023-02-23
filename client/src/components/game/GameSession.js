@@ -26,7 +26,6 @@ export default function GameSession () {
     setGameOver,
     setWinner,
     setRingAnimation,
-    setRingPosition,
     resetGameSession
   } = useGameSession();
 

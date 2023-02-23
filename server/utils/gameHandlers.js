@@ -1,5 +1,5 @@
 const registerGameHandlers = (io, socket) => {
-  const boardMax = 3;
+  const boardMax = 6;
 
   socket.on("join_room", async (data) => {
     await socket.join(data.roomId);

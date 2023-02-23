@@ -7,6 +7,9 @@ const backgrounds = [
   "bg-[#99FFFF]", // Shire
   "bg-[#1b77d8]", // Bree
   "bg-[#29274d]", // Weathertop
+  "bg-[#00174b]", // Moria
+  "bg-[#527f98]", // Anduin
+  "bg-[#43484a]", // Emyn Muil
   "bg-[#662200]" // Orodruin
 ]
 
