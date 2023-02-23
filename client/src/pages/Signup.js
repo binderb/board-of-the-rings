@@ -53,7 +53,7 @@ const Signup = () => {
       {data ? window.location.replace('/profile')
         : (
       <div className='container'>
-        <h1>Signup</h1>
+        <h1>Sign Up</h1>
         <form onSubmit={handleFormSubmit} className="signup-form">
           <div className='form-group'>
             <label htmlFor='username'>Username</label>
@@ -104,7 +104,7 @@ const Signup = () => {
             />
           </div>
           <button type='submit' className='rounded bg-green-800 p-1 px-2 hover:bg-green-700'>
-            Signup
+            Sign up
           </button><br></br>
           <p>Login instead if you have already signed up.</p>
           <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToLogin}>Login</button>
