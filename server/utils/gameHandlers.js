@@ -1,3 +1,8 @@
+const shuffle = (array) => {
+  const shuffledArray = array.sort((a, b) => 0.5 - Math.random());
+  return shuffledArray;
+}
+
 const registerGameHandlers = (io, socket) => {
   const boardMax = 6;
 
@@ -18,7 +23,8 @@ const registerGameHandlers = (io, socket) => {
     }
     console.log(`User ${socket.data.playerName} (${socket.id}) joined room ${data.roomId}.`);
     console.log(players.length);
-    io.sockets.in(data.roomId).emit('receive_current_players',players);
+    const shuffledPlayers = shuffle(players); 
+    io.sockets.in(data.roomId).emit('receive_current_players',shuffledPlayers);
   });
 
   socket.on("leave_room", async (data) => {
@@ -36,7 +42,8 @@ const registerGameHandlers = (io, socket) => {
     }
     console.log(`User ${socket.data.playerName} (${socket.id}) left room ${data}.`);
     console.log(players.length);
-    io.sockets.in(data).emit('receive_current_players',players);
+    const shuffledPlayers = shuffle(players); 
+    io.sockets.in(data).emit('receive_current_players',shuffledPlayers);
   });
 
   socket.on("host_left", (room) => {

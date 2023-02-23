@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useGameSession } from "../../utils/GameSessionContext";
 import Auth from '../../utils/auth';
-import { Link } from 'react-router-dom';
 
 export default function Lobby () {
 
