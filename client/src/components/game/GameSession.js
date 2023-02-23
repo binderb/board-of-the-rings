@@ -30,8 +30,19 @@ export default function GameSession () {
   const [incrementWins] = useMutation(UPDATE_MY_WINS);
   
   useEffect(() => {
-    socket.on('receive_picked_correct', (players) => {
-      setPlayers(players);
+    socket.on('receive_picked_correct', async (returnedPlayers) => {
+      // let newPlayers = players.map( (e,i) => {
+      //   if (e.id === socket.id) return {...players[i], animationState: "correct"};
+      //   else return {...players[i]}
+      // });
+      // setPlayers(newPlayers);
+      // await new Promise(resolve => setTimeout(resolve, 500));
+      // newPlayers = returnedPlayers.map( (e,i) => {
+      //   if (e.id === socket.id) return {...returnedPlayers[i], animationState: "walking"};
+      //   else return {...returnedPlayers[i]}
+      // });
+      // setPlayers(newPlayers);
+      setPlayers(returnedPlayers);
       const newCameraPosition = [
         boardCameraPosition[0]+boardStepSize,
         boardCameraPosition[1],

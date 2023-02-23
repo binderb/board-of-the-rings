@@ -1,4 +1,4 @@
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import BackgroundComponent from './BackgroundComponent';
 import BoardSpace from './BoardSpace';
@@ -13,6 +13,8 @@ export default function Scene () {
   } = useGameSession();
 
   const vec = new THREE.Vector3();
+  const hobbitTexture = useLoader(THREE.TextureLoader, '/assets/textures/playerSheet-Hobbit.png');
+
 
   useFrame(state => {
     state.camera.position.lerp(vec.set(...boardCameraPosition), 0.1);
@@ -31,7 +33,7 @@ export default function Scene () {
         const boardPositionY = 1.05;
         const boardPositionZ = (0 - index*offset) + ((players.length-1)*offset / 2);
         return (
-          <Player key={player.id} playerId={player.id} initialPosition={[boardPositionX,boardPositionY,boardPositionZ]} />
+          <Player key={player.id} texture={hobbitTexture} playerId={player.id} initialPosition={[boardPositionX,boardPositionY,boardPositionZ]} />
         );
       })}
       <BoardSpace position={[0,0,0]} />

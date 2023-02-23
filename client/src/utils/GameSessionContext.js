@@ -80,9 +80,8 @@ export default function GameSessionProvider({ children }) {
     const newTurn = (turn >= players.length-1) ? 0 : turn+1;
     const newPlayers = players.map( (e,i) => {
       if (i === newTurn) return {...players[i], animationState: "studyMap"};
-      else return {...players[i]}
+      else return {...players[i], animationState: "walking"};
     });
-    console.log(newPlayers);
     setPlayers(newPlayers);
     setTurn(newTurn);
     setQuestionPicked(false);

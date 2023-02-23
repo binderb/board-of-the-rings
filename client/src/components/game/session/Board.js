@@ -1,7 +1,14 @@
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect } from 'react';
-import { GameSessionContext, useGameSession } from '../../../utils/GameSessionContext';
+import { useGameSession } from '../../../utils/GameSessionContext';
 import Scene from '../board/Scene';
+
+const backgrounds = [
+  "bg-[#99FFFF]", // Shire
+  "bg-[#1b77d8]", // Bree
+  "bg-[#29274d]", // Weathertop
+  "bg-[#662200]" // Orodruin
+]
 
 export default function Board () {
 
@@ -10,17 +17,12 @@ export default function Board () {
     boardStepSize
   } = useGameSession();
 
-  const backgrounds = [
-    "bg-[#99FFFF]", // Shire
-    "bg-[#1b77d8]", // Bree
-    "bg-[#662200]" // Orodruin
-  ]
-
   const [currentBackground, setCurrentBackground] = useState(backgrounds[0]);
+
 
   useEffect ( () => {
     setCurrentBackground(backgrounds[boardCameraPosition[0]/boardStepSize])
-  }, [boardCameraPosition, backgrounds, boardStepSize]);
+  }, [boardCameraPosition, boardStepSize]);
 
   const setupCamera = (state) => {
     state.camera.fov = 40;
