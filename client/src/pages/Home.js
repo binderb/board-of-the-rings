@@ -17,15 +17,15 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
-    <div className="container">
+    <div className="flex flex-col p-4 items-center">
       <h1 className="title">Board of the Rings</h1>
-      <p className="description">
+      <p className="description text-center">
       Join the quest to destroy The One Ring and become the ultimate Tolkien trivia champion with Board of the Rings, the online multiplayer game!
       </p>
-      <div className="links">
-        <Link to='/signup' className="link">Sign up</Link><br></br>
-        <Link to='/login' className="link">Login</Link><br></br>
-        <Link to='/rules' className="link">Game Rules</Link>
+      <div className="flex flex-wrap justify-around w-full max-w-[600px] ">
+        <Link to='/signup' className="link m-2">Sign up</Link>
+        <Link to='/login' className="link m-2">Login</Link>
+        <Link to='/rules' className="link m-2">Game Rules</Link>
       </div>
     </div>
   );

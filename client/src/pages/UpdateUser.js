@@ -62,14 +62,15 @@ const UpdateUsername = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center p-3"><h1>Update Profile</h1>
-      <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToProfile}>Back to Profile</button>
+      <div className="flex justify-between items-center p-3">
+        <h1 className="p-0">Update Profile</h1>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToProfile}>Back to Profile</button>
       </div>
       <form className="signup-form" onSubmit={handleFormSubmit}>
         <div className="form-group">
           <label htmlFor="username">New Username:</label>
           <input
-            className="form-input"
+            className="textfield"
             placeholder="Enter new username"
             name="username"
             type="text"
@@ -90,7 +91,7 @@ const UpdateUsername = () => {
         <div className="form-group">
           <label htmlFor="displayName">New Display Name:</label>
           <input
-            className="form-input"
+            className="textfield"
             placeholder="Enter new display name"
             name="displayName"
             type="text"

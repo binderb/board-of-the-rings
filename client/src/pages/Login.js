@@ -51,7 +51,7 @@ const Login = (props) => {
       { data ? 
         window.location.replace('/profile')
       : (
-      <div className='container'>
+      <div className='flex flex-col items-center pt-4'>
         <h1>Login</h1>
         <form onSubmit={handleFormSubmit} className="login-form">
           <div className='form-group'>

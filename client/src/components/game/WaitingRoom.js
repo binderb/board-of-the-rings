@@ -12,7 +12,8 @@ export default function WaitingRoom () {
     isHost,
     leaveRoom,
     leaveRoomAsHost,
-    pickQuestion
+    pickQuestion,
+    turn
   } = useGameSession();
 
   useEffect(() => {
@@ -27,6 +28,11 @@ export default function WaitingRoom () {
 
     socket.on('receive_start_game', () => {
       setGameScreen('gameSession');
+      const newPlayers = players.map( (e,i) => {
+        if (i === turn) return {...players[i], animationState: "studyMap"};
+        else return {...players[i], animationState: "walking"};
+      });
+      setPlayers(newPlayers);
     });   
 
     return () => {
@@ -34,7 +40,7 @@ export default function WaitingRoom () {
       socket.off('receive_host_left');
       socket.off('receive_start_game');
     };
-  }, [socket, setPlayers, leaveRoom, setGameScreen]);
+  });
 
   const handleCancelHost = () => {
     leaveRoomAsHost();
@@ -53,6 +59,7 @@ export default function WaitingRoom () {
 
   return (
     <>
+      <h1 className="p-0">Waiting Room</h1>
       {isHost
         ?
         <p>You are the host. Click "Start" when all players have joined!</p>

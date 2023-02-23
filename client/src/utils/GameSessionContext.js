@@ -14,8 +14,8 @@ export default function GameSessionProvider({ children }) {
   
   // Global variables for the game session
   const initialCameraPosition = [0,2,10];
-  const boardStepSize = 3;
-  const boardMax = 3;
+  const boardStepSize = 5;
+  const boardMax = 6;
   const { loading: questionsLoading, data: questionsData } = useQuery(QUERY_QUESTIONS);
   const [gameScreen, setGameScreen] = useState('lobby');
   const [roomId, setRoomId] = useState('');
@@ -28,6 +28,8 @@ export default function GameSessionProvider({ children }) {
   const [boardCameraPosition, setBoardCameraPosition] = useState(initialCameraPosition);
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState(null);
+  const [ringPosition, setRingPosition] = useState([0,0,0]);
+  const [ringAnimation, setRingAnimation] = useState('invisible');
 
   useEffect(() => {
     socket.on('receive_reset_questions', () => {
@@ -52,7 +54,7 @@ export default function GameSessionProvider({ children }) {
       const turnPlayer = players[turn];
       setBoardCameraPosition([(turnPlayer.boardPosition*boardStepSize), boardCameraPosition[1], boardCameraPosition[2]]);
     }
-  }, [turn, players, boardCameraPosition, setBoardCameraPosition, boardStepSize])
+  }, [players, turn, boardCameraPosition]);
 
   // Methods
   const joinRoom = (id) => {
@@ -77,8 +79,13 @@ export default function GameSessionProvider({ children }) {
   }
 
   const advanceTurn = () => {
-    if (turn >= players.length-1) setTurn(0);
-    else setTurn(turn+1);
+    const newTurn = (turn >= players.length-1) ? 0 : turn+1;
+    const newPlayers = players.map( (e,i) => {
+      if (i === newTurn) return {...players[i], animationState: "studyMap"};
+      else return {...players[i], animationState: "walking"};
+    });
+    setPlayers(newPlayers);
+    setTurn(newTurn);
     setQuestionPicked(false);
   }
 
@@ -141,7 +148,11 @@ export default function GameSessionProvider({ children }) {
       setGameOver,
       winner,
       setWinner,
-      resetGameSession
+      resetGameSession,
+      ringAnimation,
+      setRingAnimation,
+      ringPosition,
+      setRingPosition
     }}>
       {children}
     </GameSessionContext.Provider>

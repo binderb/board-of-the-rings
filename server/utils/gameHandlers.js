@@ -1,5 +1,5 @@
 const registerGameHandlers = (io, socket) => {
-  const boardMax = 3;
+  const boardMax = 6;
 
   socket.on("join_room", async (data) => {
     await socket.join(data.roomId);
@@ -52,16 +52,23 @@ const registerGameHandlers = (io, socket) => {
     io.sockets.in(data.room).emit('receive_pick_question', data.questionIndex);
   });
 
-  socket.on("picked_correct", ({players, room}) => {
+  socket.on("picked_correct", ({players, room, choice}) => {
     const correct_player = players.find(e => e.id === socket.id);
     correct_player.boardPosition += 1;
+    correct_player.animationState = 'correct';
     if (correct_player.boardPosition == boardMax) {
-
-      io.sockets.in(room).emit('receive_win_condition', players);
+      io.sockets.in(room).emit('receive_win_condition', {players, choice});
     } else {
-      io.sockets.in(room).emit('receive_picked_correct', players);
+      io.sockets.in(room).emit('receive_picked_correct', {players, choice});
     }
     
+  });
+
+  socket.on("picked_incorrect", ({players, room, choice}) => {
+    console.log('Choice: ', choice);
+    const incorrect_player = players.find(e => e.id === socket.id);
+    incorrect_player.animationState = 'incorrect';
+    io.sockets.in(room).emit('receive_picked_incorrect', {players, choice})
   });
 
   socket.on("advance_turn", (room) => {

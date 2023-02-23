@@ -10,7 +10,6 @@ export default function Game () {
 
   return (
     <>
-    <h1>Game Session</h1>
     {gameScreen === 'lobby' ? <Lobby /> : null}
     {gameScreen === 'waitingRoom' ? <WaitingRoom /> : null}
     {gameScreen === 'hostLeft' ? <HostLeft /> : null}

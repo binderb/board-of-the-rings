@@ -2,7 +2,7 @@ export default function BoardSpace ({position}) {
 
   return (
     <mesh position={position}>
-      <boxGeometry args={[2.95,0.05,0.95]} />
+      <boxGeometry args={[4.95,0.05,1.25]} />
       <meshLambertMaterial color="#690" />
     </mesh>
   );

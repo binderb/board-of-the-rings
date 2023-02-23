@@ -58,9 +58,16 @@ export default function Lobby () {
     );
   }
 
+  function backToProfile() {
+    window.location.href = '/profile';
+  }
+
   return (
     <section id="lobby">
-      <Link to='/profile'>&larr; Back to Profile</Link>
+      <div className="flex justify-between items-center p-3">
+        <h1 className="p-0">Player Lobby</h1>
+        <button className="rounded bg-green-800 p-1 px-2 hover:bg-green-700" onClick={backToProfile}>Back to Profile</button>
+      </div>
       <div className="p-1">
         <label htmlFor="name-input" className="pr-2">You are playing as: {me.displayName}</label>
       </div>
