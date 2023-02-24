@@ -39,6 +39,9 @@ The game session:
 Playing the game:
 ![ingame](/client/public/assets/screenshots/ingame.png)
 
+Winning the game:
+![winning](/client/public/assets/screenshots/winning.gif)
+
 
 ## Credits 
 
